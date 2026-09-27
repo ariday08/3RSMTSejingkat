@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jom Go Green! Sudut 3R</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF6F1; --surface:#FFFFFF; --ink:#15302A; --muted:#4B665E; --line:#D2E3D9;
+  --am:#B23A55; --kertas:#1E63C6; --organik:#2F9A44; --kaca:#7B5433; --logam:#EB8212;
+  --ok:#2F9A44; --bad:#B23A55; --chip:#E1EFE6;
+  --display:"Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1C18; --surface:#162A24; --ink:#E3F1EA; --muted:#9DB9AF; --line:#28443B; --chip:#1E3730;
+    --kertas:#4A8BEA; --kaca:#B58658; --am:#D65A76;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1C18; --surface:#162A24; --ink:#E3F1EA; --muted:#9DB9AF; --line:#28443B; --chip:#1E3730;
+  --kertas:#4A8BEA; --kaca:#B58658; --am:#D65A76;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none !important}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;min-height:100%;-webkit-tap-highlight-color:transparent}
+img{max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--kertas);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0}
+h2{font-size:1.75rem;font-weight:800}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:.4em 0}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.top-in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.3rem;display:flex;gap:8px;align-items:center;text-decoration:none;color:var(--ink)}
+.brand{white-space:nowrap}
+@media (max-width:420px){.brand small{display:none}}
+.brand small{font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted)}
+.points{background:var(--chip);border-radius:999px;padding:4px 12px;font-weight:700;font-size:.9rem;white-space:nowrap}
+.lids{display:grid;grid-template-columns:repeat(5,1fr);height:7px}
+.lids span:nth-child(1){background:var(--am)}.lids span:nth-child(2){background:var(--kertas)}
+.lids span:nth-child(3){background:var(--organik)}.lids span:nth-child(4){background:var(--kaca)}
+.lids span:nth-child(5){background:var(--logam)}
+
+main{max-width:760px;margin:0 auto;padding:18px 18px 110px}
+section.view{display:none}
+section.view.on{display:block}
+
+/* bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs button{background:none;border:0;padding:8px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.78rem;color:var(--muted);border-top:4px solid transparent}
+nav.tabs button .ic{font-size:1.35rem;line-height:1}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700;border-top-color:var(--tc)}
+
+/* home */
+.hero{padding:8px 0 6px}
+.hero h1{font-size:clamp(2.6rem,11vw,4.4rem);font-weight:800;letter-spacing:-.01em}
+.hero p.sub{font-size:1.1rem;color:var(--muted);max-width:32ch}
+.binrow{display:flex;gap:10px;align-items:flex-start;margin:22px 0 8px;overflow-x:auto;padding:14px 2px 6px}
+.cbin{flex:1 0 58px;min-width:58px;max-width:120px;background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.cbin .body{width:100%;aspect-ratio:3/4;background:var(--c);border-radius:5px 5px 12px 12px;position:relative;display:grid;place-items:center;color:#fff;font-size:1.5rem}
+.cbin .body::before{content:"";position:absolute;left:-6%;right:-6%;top:-12px;height:14px;background:var(--c);filter:brightness(.82);border-radius:6px 6px 2px 2px;transform-origin:10% 100%;transition:transform .25s}
+.cbin:hover .body::before,.cbin:focus-visible .body::before{transform:rotate(-14deg)}
+.cbin .lbl{font-size:.8rem;font-weight:700;line-height:1.2}
+@media (prefers-reduced-motion:no-preference){
+  .binrow.drop .cbin{animation:hop .6s cubic-bezier(.3,1.6,.5,1) both}
+  .binrow.drop .cbin:nth-child(2){animation-delay:.08s}.binrow.drop .cbin:nth-child(3){animation-delay:.16s}
+  .binrow.drop .cbin:nth-child(4){animation-delay:.24s}.binrow.drop .cbin:nth-child(5){animation-delay:.32s}
+}
+@keyframes hop{from{transform:translateY(-40px);opacity:0}to{transform:none;opacity:1}}
+.hint{font-size:.88rem;color:var(--muted)}
+
+.acts{margin:26px 0;display:flex;flex-direction:column;gap:10px}
+.act{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-align:left;border-left:10px solid var(--c)}
+.act b{font-family:var(--display);font-size:1.25rem;display:block;line-height:1.15}
+.act span.d{color:var(--muted);font-size:.93rem}
+.act .e{font-size:1.8rem}
+
+.pledges{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:10px}
+.pledge{padding:12px 0;border-top:3px solid var(--organik)}
+.pledge .e{font-size:1.6rem}
+.pledge b{display:block;font-family:var(--display);font-size:1.05rem;line-height:1.2;margin-top:4px}
+.pledge span{font-size:.9rem;color:var(--muted)}
+
+/* learn */
+.block{margin:30px 0}
+.lead{font-size:1.08rem;max-width:62ch}
+.why{display:grid;gap:12px;margin-top:14px}
+.why div{background:var(--surface);border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+.why b{font-family:var(--display);font-size:1.1rem}
+.threeR{display:grid;gap:0;margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.threeR div{padding:16px;background:var(--surface);border-top:1px solid var(--line)}
+.threeR div:first-child{border-top:0}
+.threeR h3 .en{font-family:var(--body);font-weight:400;font-size:.85rem;color:var(--muted);margin-left:6px}
+.threeR ul{margin:6px 0 0;padding-left:1.2em}
+details.bininfo{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:10px 0;overflow:hidden}
+details.bininfo summary{list-style:none;display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+details.bininfo summary::-webkit-details-marker{display:none}
+details.bininfo summary .sw{width:34px;height:42px;border-radius:4px 4px 8px 8px;background:var(--c);flex:none;display:grid;place-items:center;color:#fff}
+details.bininfo summary b{font-family:var(--display);font-size:1.2rem}
+details.bininfo summary .chev{margin-left:auto;transition:transform .2s}
+details.bininfo[open] summary .chev{transform:rotate(90deg)}
+details.bininfo .inner{padding:0 16px 16px;border-top:4px solid var(--c)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.cols h4{margin:0 0 4px;font-size:.95rem}
+.cols ul{margin:0;padding-left:1.1em;font-size:.95rem}
+.tipbox{background:var(--chip);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.95rem}
+.decay{margin-top:12px}
+.drow{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;align-items:center;margin:8px 0;font-size:.93rem}
+.dbar{height:22px;background:var(--chip);border-radius:6px;position:relative;overflow:hidden}
+.dbar i{position:absolute;inset:0 auto 0 0;background:var(--c);border-radius:6px}
+.dbar em{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-style:normal;font-weight:700;font-size:.82rem}
+.note{font-size:.84rem;color:var(--muted)}
+
+/* VR */
+#view-vr main, .vrwrap{position:relative}
+.vrstage{position:relative;width:100%;height:max(380px,min(calc(100dvh - 250px),640px));border-radius:16px;overflow:hidden;background:#cfe7f3;touch-action:none}
+.vrstage canvas{display:block;width:100%;height:100%}
+.vrstage.full{position:fixed;inset:0;height:100%;border-radius:0;z-index:100}
+.vrpanel{position:absolute;inset:0;display:grid;place-items:center;padding:18px;background:rgba(14,28,24,.55);z-index:3}
+.vrpanel .card{background:var(--surface);color:var(--ink);border-radius:16px;padding:20px;max-width:420px;width:100%}
+.vrpanel h3{font-size:1.5rem;margin-bottom:6px}
+.vrpanel ul{padding-left:1.1em;margin:8px 0;font-size:.95rem}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;background:var(--organik);color:#fff;font-size:1rem}
+.btn.alt{background:var(--chip);color:var(--ink)}
+.btn.blue{background:var(--kertas)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.vrbar{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:8px;justify-content:space-between;z-index:2;pointer-events:none}
+.vrbar>*{pointer-events:auto}
+.pill{background:rgba(255,255,255,.9);color:#15302A;border:0;border-radius:999px;padding:6px 12px;font-weight:700;font-size:.9rem}
+.vrstage.full .vrbar{top:calc(10px + env(safe-area-inset-top,0px))}
+.divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#000;display:none;z-index:1}
+.vrstage.stereo .divider{display:block}
+.binbtns{position:absolute;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;z-index:2}
+.vrstage.stereo .binbtns{display:none}
+.binbtns button{border:0;border-radius:10px;padding:8px 2px;background:var(--c);color:#fff;font-weight:700;font-size:.74rem;line-height:1.15}
+.vrstage.full .binbtns{bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+
+/* quiz */
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+.qprog{display:flex;gap:4px;margin-bottom:14px}
+.qprog i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.qprog i.done{background:var(--organik)}.qprog i.wrong{background:var(--am)}.qprog i.now{background:var(--ink)}
+.qtext{font-family:var(--display);font-size:1.45rem;font-weight:700;line-height:1.2}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;font-size:1rem}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--surface))}
+.opt.wrongpick{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--surface))}
+.explain{margin-top:12px;padding:12px;border-radius:10px;background:var(--chip);font-size:.96rem}
+.board{margin-top:16px}
+.board ol{padding-left:1.4em;margin:6px 0}
+.board li{padding:4px 0;border-bottom:1px solid var(--line)}
+.field{display:flex;gap:8px;margin-top:10px}
+.field input{flex:1;min-width:0;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:var(--bg);color:var(--ink)}
+.badge{font-size:3rem;line-height:1}
+
+/* eko */
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:14px;min-height:240px}
+.msg{max-width:88%;padding:10px 14px;border-radius:16px;font-size:.98rem;white-space:pre-wrap;word-wrap:break-word}
+.msg.eko{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.me{background:var(--organik);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.msg.eko .who{font-family:var(--display);font-weight:800;display:block;font-size:.9rem;color:var(--organik)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px}
+.chips button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;font-size:.88rem}
+.composer{position:sticky;bottom:calc(66px + env(safe-area-inset-bottom,0px));background:var(--bg);padding:10px 0}
+.status{font-size:.84rem;color:var(--muted);margin-top:6px}
+.scanres{display:flex;gap:12px;align-items:center}
+.scanres img{width:72px;height:72px;object-fit:cover;border-radius:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#utama">🌱 Jom Go Green! <small>Sudut 3R</small></a>
+    <span class="points" id="pts" aria-live="polite">0 mata hijau</span>
+  </div>
+  <div class="lids" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<main>
+<!-- UTAMA -->
+<section class="view" id="view-utama" aria-label="Utama">
+  <div class="hero">
+    <h1>Jom Go Green!</h1>
+    <p class="sub">Selamatkan bumi kita, bermula dengan sampah di tangan anda.</p>
+  </div>
+  <div class="binrow" id="homeBins"></div>
+  <p class="hint">Ketik mana-mana tong untuk tahu apa yang boleh dimasukkan.</p>
+
+  <div class="acts">
+    <button class="act" style="--c:var(--logam)" data-go="vr"><span class="e">🥽</span><span><b>Main Cabaran VR</b><span class="d">Asingkan 10 sampah ke tong yang betul dalam dunia 3D.</span></span></button>
+    <button class="act" style="--c:var(--am)" data-go="kuiz"><span class="e">❓</span><span><b>Jawab Kuiz</b><span class="d">10 soalan. Kumpul mata dan masuk papan skor.</span></span></button>
+    <button class="act" style="--c:var(--kaca)" data-go="eko"><span class="e">🤖</span><span><b>Tanya Eko AI</b><span class="d">Tak pasti sampah ini masuk tong mana? Tanya atau imbas gambarnya.</span></span></button>
+    <button class="act" style="--c:var(--kertas)" data-go="belajar"><span class="e">📚</span><span><b>Belajar 3R</b><span class="d">Kenapa alam sekitar penting, dan cara kitar semula yang betul.</span></span></button>
+  </div>
+
+  <h2>Empat amalan hijau</h2>
+  <div class="pledges">
+    <div class="pledge"><div class="e">♻️</div><b>Kurangkan sampah, guna semula, kitar semula</b><span>Asingkan sampah ikut tong.</span></div>
+    <div class="pledge"><div class="e">💡</div><b>Jimat air dan elektrik</b><span>Tutup suis dan paip bila tidak digunakan.</span></div>
+    <div class="pledge"><div class="e">🥤</div><b>Elakkan plastik sekali guna</b><span>Bawa botol dan bekas makanan sendiri.</span></div>
+    <div class="pledge"><div class="e">🚲</div><b>Guna pengangkutan mesra alam</b><span>Berjalan kaki, berbasikal atau berkongsi kenderaan.</span></div>
+  </div>
+</section>
+
+<!-- BELAJAR -->
+<section class="view" id="view-belajar" aria-label="Belajar">
+  <h2>Kenapa kita perlu jaga alam sekitar?</h2>
+  <p class="lead">Setiap hari Malaysia menghasilkan puluhan ribu tan sisa pepejal, dan kebanyakannya berakhir di tapak pelupusan. Sampah yang diasingkan dengan betul boleh diproses semula menjadi barang baharu.</p>
+  <div class="why">
+    <div><b>🌳 Selamatkan pokok dan hutan</b><p>Kertas kitar semula mengurangkan keperluan menebang pokok baharu.</p></div>
+    <div><b>⚡ Jimat tenaga</b><p>Menghasilkan tin daripada aluminium kitar semula menggunakan jauh lebih sedikit tenaga berbanding daripada bijih baharu.</p></div>
+    <div><b>🌍 Kurangkan gas rumah hijau</b><p>Sisa makanan yang reput di tapak pelupusan membebaskan gas metana. Jadikan kompos lebih baik.</p></div>
+    <div><b>🐢 Lindungi hidupan laut</b><p>Plastik yang dibuang merata-rata boleh sampai ke sungai dan laut, lalu dimakan penyu dan ikan.</p></div>
+  </div>
+
+  <div class="block">
+    <h2>Apa itu 3R?</h2>
+    <div class="threeR">
+      <div style="border-left:8px solid var(--am)"><h3>Kurangkan<span class="en">Reduce</span></h3><ul><li>Bawa botol air dan bekas makanan sendiri</li><li>Tolak straw dan beg plastik</li><li>Ambil makanan secukupnya</li></ul></div>
+      <div style="border-left:8px solid var(--kertas)"><h3>Guna Semula<span class="en">Reuse</span></h3><ul><li>Jadikan balang kaca bekas alat tulis</li><li>Tulis di kedua-dua belah kertas</li><li>Derma buku dan pakaian lama</li></ul></div>
+      <div style="border-left:8px solid var(--organik)"><h3>Kitar Semula<span class="en">Recycle</span></h3><ul><li>Asingkan ikut tong berwarna</li><li>Bilas botol dan tin dahulu</li><li>Leperkan kotak supaya jimat ruang</li></ul></div>
+    </div>
+  </div>
+
+  <div class="block" id="binsBlock">
+    <h2>Tong di sudut ini</h2>
+    <p class="note">Ketik untuk lihat apa yang boleh dan tidak boleh dimasukkan.</p>
+    <div id="binDetails"></div>
+  </div>
+
+  <div class="block">
+    <h2>Berapa lama sampah reput?</h2>
+    <div class="decay" id="decay"></div>
+    <p class="note">Anggaran yang biasa digunakan dalam pendidikan alam sekitar. Tempoh sebenar bergantung pada cahaya, suhu dan kelembapan. Skala bar adalah logaritma.</p>
+  </div>
+  <div class="btns"><button class="btn" data-go="kuiz">Uji kefahaman saya</button><button class="btn alt" data-go="vr">Main cabaran VR</button></div>
+</section>
+
+<!-- VR -->
+<section class="view" id="view-vr" aria-label="Cabaran VR">
+  <h2>Cabaran VR: Asingkan Sampah</h2>
+  <p class="note" style="margin-bottom:12px">Masukkan setiap sampah ke tong yang betul. Guna telefon dengan kotak VR (jenis Cardboard) atau main terus di skrin.</p>
+  <div class="vrstage" id="vrStage">
+    <div class="divider"></div>
+    <div class="vrbar" id="vrBar" hidden>
+      <button class="pill" id="vrExit">✕ Keluar</button>
+      <span class="pill" id="vrScore">0 / 10</span>
+      <button class="pill" id="vrCenter" hidden>⟳ Tengah</button>
+    </div>
+    <div class="binbtns" id="binBtns" hidden></div>
+    <div class="vrpanel" id="vrStart">
+      <div class="card">
+        <h3>Sedia untuk mula?</h3>
+        <ul>
+          <li><b>Mod skrin:</b> seret untuk pusing pandangan, ketik tong untuk buang sampah.</li>
+          <li><b>Mod VR:</b> letak telefon dalam kotak VR. Pandang tong selama 1.5 saat untuk buang sampah.</li>
+        </ul>
+        <div class="btns">
+          <button class="btn" id="startScreen">Main di skrin</button>
+          <button class="btn blue" id="startVR">🥽 Mod VR</button>
+        </div>
+        <p class="note" id="vrLoadNote" style="margin-top:10px"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KUIZ -->
+<section class="view" id="view-kuiz" aria-label="Kuiz">
+  <h2>Kuiz Wira Hijau</h2>
+  <div id="quizArea"></div>
+  <div class="board" id="board"></div>
+</section>
+
+<!-- EKO -->
+<section class="view" id="view-eko" aria-label="Eko AI">
+  <h2>Tanya Eko 🤖</h2>
+  <p class="note">Eko ialah pembantu AI sudut ini. Tanya apa-apa tentang alam sekitar, atau imbas gambar sampah untuk tahu tong yang betul.</p>
+  <div class="chat" id="chat" aria-live="polite"></div>
+  <div class="composer">
+    <div class="chips" id="chips"></div>
+    <div class="field">
+      <input id="ask" placeholder="Contoh: Kotak susu masuk tong mana?" aria-label="Soalan untuk Eko" autocomplete="off">
+      <button class="btn" id="send">Hantar</button>
+    </div>
+    <div class="btns" style="margin-top:8px">
+      <label class="btn alt" id="scanLbl" hidden>📷 Imbas sampah
+        <input type="file" id="scan" accept="image/*" capture="environment" class="sr">
+      </label>
+      <button class="btn alt" id="stopAI" hidden>Berhenti</button>
+    </div>
+    <p class="status" id="aiStatus">Menyambung Eko…</p>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" aria-label="Navigasi utama"><div class="in" id="tabs"></div></nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============ DATA ============ */
+const BINS=[
+ {id:'am',name:'Sisa Am',ic:'🗑️',why:'Bahan yang kotor, berminyak atau bercampur lapisan tidak dapat diproses semula, jadi ia dihantar ke tapak pelupusan.',
+  yes:['Tisu dan napkin terpakai','Bekas polistirena berminyak','Pembungkus snek berlapis kerajang','Pen dan pensel rosak'],
+  no:['Kertas bersih','Botol dan tin','Sisa makanan']},
+ {id:'kertas',name:'Kertas',ic:'📄',why:'Kertas mesti kering dan bersih. Leperkan kotak supaya tong tidak cepat penuh.',
+  yes:['Surat khabar dan majalah','Kotak kadbod (dileperkan)','Buku dan kertas latihan','Kotak bijirin dan kotak kasut'],
+  no:['Kertas berminyak atau basah','Tisu','Kertas berlaminat atau berlilin']},
+ {id:'organik',name:'Sisa Organik',ic:'🍃',why:'Sisa makanan dan tumbuhan boleh dijadikan kompos untuk kebun sekolah.',
+  yes:['Sisa makanan dan nasi','Kulit buah dan sayur','Daun kering dan ranting kecil','Hampas teh dan kopi'],
+  no:['Plastik pembungkus makanan','Tisu bercampur bahan kimia','Tulang dan cangkerang besar']},
+ {id:'kaca',name:'Kaca',ic:'🍾',why:'Kaca boleh dikitar semula berulang kali tanpa hilang kualiti. Bilas dan tanggalkan penutupnya.',
+  yes:['Botol kaca minuman','Balang kaca makanan','Botol kicap dan sos'],
+  no:['Cermin dan kaca tingkap','Mentol lampu','Pinggan dan cawan seramik']},
+ {id:'logam',name:'Logam & Plastik',ic:'🥫',why:'Bilas tin dan botol, kemudian penyekkan supaya jimat ruang.',
+  yes:['Tin minuman aluminium','Tin makanan','Botol plastik minuman','Bekas plastik yang bersih'],
+  no:['Plastik berminyak','Polistirena','Bateri (hantar ke pusat e-sisa)']}
+];
+const BIN=Object.fromEntries(BINS.map(b=>[b.id,b]));
+const ITEMS=[
+ {n:'Surat khabar lama',b:'kertas',s:'sheet',c:'#d9d6cf',k:['surat khabar','akhbar','majalah']},
+ {n:'Kotak kadbod',b:'kertas',s:'box',c:'#c49a64',k:['kadbod','kotak kasut','kotak']},
+ {n:'Buku latihan terpakai',b:'kertas',s:'book',c:'#5b8fd6',k:['buku','kertas latihan','kertas']},
+ {n:'Botol kicap kaca',b:'kaca',s:'bottle',c:'#3f6a2a',clear:true,k:['botol kaca','kicap','sos']},
+ {n:'Balang jem kaca',b:'kaca',s:'jar',c:'#bfe3e8',clear:true,k:['balang','jem','kaca']},
+ {n:'Tin minuman aluminium',b:'logam',s:'can',c:'#c9ced6',k:['tin','aluminium']},
+ {n:'Botol air plastik',b:'logam',s:'bottle',c:'#8fd0f0',clear:true,k:['botol plastik','botol air','plastik']},
+ {n:'Bekas yogurt plastik',b:'logam',s:'cup',c:'#f2f2f2',k:['bekas plastik','yogurt','cawan plastik']},
+ {n:'Kulit pisang',b:'organik',s:'banana',c:'#f1d34a',k:['pisang','kulit buah','buah']},
+ {n:'Sisa nasi',b:'organik',s:'blob',c:'#f3efe3',k:['nasi','sisa makanan','makanan','lauk']},
+ {n:'Daun kering',b:'organik',s:'leaf',c:'#a4812f',k:['daun','ranting','rumput']},
+ {n:'Tisu terpakai',b:'am',s:'tissue',c:'#ffffff',k:['tisu','napkin']},
+ {n:'Bekas polistirena berminyak',b:'am',s:'foam',c:'#fafafa',k:['polistirena','polisterin','styrofoam','bekas makanan']},
+ {n:'Pembungkus snek',b:'am',s:'pack',c:'#d8433a',k:['pembungkus','snek','kerepek','gula-gula']},
+ {n:'Pen rosak',b:'am',s:'pen',c:'#2c4fa3',k:['pen','pensel']}
+];
+const DECAY=[
+ ['Kulit pisang',21,'3 minggu','organik'],['Surat khabar',42,'6 minggu','kertas'],['Kotak susu',1825,'5 tahun','kertas'],
+ ['Beg plastik',7300,'20 tahun','am'],['Cawan polistirena',18250,'50 tahun','am'],['Tin aluminium',73000,'200 tahun','logam'],
+ ['Botol plastik',164250,'450 tahun','logam'],['Botol kaca',365e6,'±1 juta tahun','kaca']
+];
+const QBANK=[
+ {q:'Apakah maksud 3R?',o:['Kurangkan, Guna Semula, Kitar Semula','Rawat, Rehat, Rancang','Baca, Rekod, Ulang','Kutip, Bakar, Tanam'],a:0,e:'3R ialah Reduce, Reuse dan Recycle: kurangkan, guna semula, kitar semula.'},
+ {q:'Tong berwarna biru di sudut ini untuk apa?',o:['Kaca','Kertas','Sisa makanan','Tin'],a:1,e:'Tong biru ialah untuk kertas seperti surat khabar, buku dan kotak.'},
+ {q:'Tong berwarna coklat untuk bahan apa?',o:['Plastik','Kertas','Kaca','Daun'],a:2,e:'Tong coklat ialah untuk botol dan balang kaca.'},
+ {q:'Tin minuman aluminium patut dimasukkan ke tong…',o:['Oren (Logam & Plastik)','Biru (Kertas)','Coklat (Kaca)','Merah (Sisa Am)'],a:0,e:'Tin aluminium masuk tong oren. Bilas dan penyekkan dahulu.'},
+ {q:'Kulit pisang paling sesuai dimasukkan ke…',o:['Tong kertas','Tong sisa organik','Tong kaca','Tong logam & plastik'],a:1,e:'Kulit buah ialah sisa organik yang boleh dijadikan kompos.'},
+ {q:'Tisu terpakai patut dibuang ke…',o:['Tong kertas','Tong sisa am','Tong kaca','Tong organik'],a:1,e:'Tisu terpakai kotor dan seratnya terlalu pendek untuk dikitar semula, jadi ia sisa am.'},
+ {q:'Antara berikut, yang manakah contoh KURANGKAN?',o:['Membawa botol air sendiri ke sekolah','Membuang botol ke tong oren','Menjual surat khabar lama','Membakar sampah'],a:0,e:'Membawa botol sendiri mengurangkan penggunaan botol plastik baharu.'},
+ {q:'Antara berikut, yang manakah contoh GUNA SEMULA?',o:['Membeli pen baharu setiap minggu','Menjadikan balang kaca bekas alat tulis','Membuang kotak ke tong biru','Menggunakan straw plastik'],a:1,e:'Guna semula bermaksud memberi fungsi baharu kepada barang tanpa memprosesnya.'},
+ {q:'Berapa lama anggaran sebuah botol plastik terurai?',o:['1 tahun','10 tahun','Sekitar 450 tahun','1 bulan'],a:2,e:'Anggaran yang biasa digunakan ialah sekitar 450 tahun.'},
+ {q:'Apa perlu dibuat sebelum memasukkan botol ke tong kitar semula?',o:['Isi dengan pasir','Bilas dan keringkan','Bakar sedikit','Tidak perlu buat apa-apa'],a:1,e:'Botol yang bersih mengelakkan bau dan mencemarkan bahan kitar semula lain.'},
+ {q:'Kenapa kotak kadbod perlu dileperkan?',o:['Supaya lebih berat','Supaya jimat ruang dalam tong','Supaya cepat reput','Supaya warnanya pudar'],a:1,e:'Kotak yang dileperkan menjimatkan ruang dan memudahkan kutipan.'},
+ {q:'Kaca boleh dikitar semula…',o:['Sekali sahaja','Berulang kali tanpa hilang kualiti','Tidak boleh langsung','Hanya jika berwarna'],a:1,e:'Kaca boleh dicairkan dan dibentuk semula berulang kali.'},
+ {q:'Cara terbaik menjimatkan elektrik di kelas ialah…',o:['Buka kipas walaupun kelas kosong','Tutup lampu dan kipas bila keluar kelas','Caskan telefon sepanjang hari','Buka pintu ketika penghawa dingin hidup'],a:1,e:'Menutup suis ketika tidak digunakan menjimatkan tenaga.'},
+ {q:'Yang manakah pengangkutan paling mesra alam ke sekolah?',o:['Kereta seorang diri','Berbasikal atau berjalan kaki','Motosikal dengan enjin dihidupkan lama','Teksi kosong'],a:1,e:'Berbasikal dan berjalan kaki tidak menghasilkan asap kenderaan.'},
+ {q:'Yang manakah contoh plastik sekali guna?',o:['Botol air besi tahan karat','Straw plastik','Bekas makanan kaca','Beg kain'],a:1,e:'Straw plastik biasanya digunakan sekali lalu dibuang.'},
+ {q:'Kompos dihasilkan daripada…',o:['Sisa organik','Tin aluminium','Botol kaca','Polistirena'],a:0,e:'Sisa makanan dan tumbuhan diuraikan menjadi baja kompos.'},
+ {q:'Mengapa kita perlu kitar semula kertas?',o:['Supaya kertas lebih mahal','Mengurangkan penebangan pokok','Supaya tong biru penuh','Kerana kertas tidak boleh reput'],a:1,e:'Kertas kitar semula mengurangkan permintaan kayu daripada hutan.'},
+ {q:'Hari Bumi disambut setiap tahun pada…',o:['1 Januari','22 April','31 Ogos','25 Disember'],a:1,e:'Hari Bumi disambut di seluruh dunia pada 22 April.'},
+ {q:'Gas apakah yang terhasil apabila sisa makanan reput di tapak pelupusan?',o:['Oksigen','Metana','Helium','Nitrogen tulen'],a:1,e:'Metana ialah gas rumah hijau yang kuat.'},
+ {q:'Mentol lampu yang rosak patut dimasukkan ke tong kaca?',o:['Ya, kerana ia kaca','Tidak, jenis kaca dan bahannya berbeza','Ya, selepas dipecahkan','Masukkan ke tong kertas'],a:1,e:'Kaca mentol berbeza daripada kaca botol dan sesetengahnya mengandungi bahan berbahaya.'},
+ {q:'Bateri terpakai paling baik dihantar ke…',o:['Tong organik','Pusat kutipan e-sisa','Tong kertas','Longkang'],a:1,e:'Bateri mengandungi logam berat dan perlu dikendalikan sebagai e-sisa.'}
+];
+
+/* ============ HELPERS ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let points=store.get('jgg-pts',0);
+function addPoints(n){points+=n;store.set('jgg-pts',points);$('#pts').textContent=points+' mata hijau'}
+addPoints(0);
+
+/* ============ NAV ============ */
+const TABS=[['utama','🏠','Utama','--organik'],['belajar','📚','Belajar','--kertas'],['vr','🥽','VR','--logam'],['kuiz','❓','Kuiz','--am'],['eko','🤖','Eko AI','--kaca']];
+$('#tabs').innerHTML=TABS.map(([id,ic,l,c])=>`<button data-go="${id}" style="--tc:var(${c})"><span class="ic" aria-hidden="true">${ic}</span>${l}</button>`).join('');
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){location.hash=g.dataset.go}});
+function route(){
+  let h=(location.hash||'#utama').slice(1);let binFocus=null;
+  if(h.startsWith('tong-')){binFocus=h.slice(5);h='belajar'}
+  if(!TABS.some(t=>t[0]===h))h='utama';
+  document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on',s.id==='view-'+h));
+  document.querySelectorAll('#tabs button').forEach(b=>{if(b.dataset.go===h)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  if(h!=='vr')stopVR();
+  if(binFocus&&BIN[binFocus]){const d=document.getElementById('bin-'+binFocus);if(d){d.open=true;setTimeout(()=>d.scrollIntoView({block:'start'}),50)}}
+  else window.scrollTo(0,0);
+  if(h==='kuiz'&&!quiz.active)renderQuizStart();
+}
+window.addEventListener('hashchange',route);
+
+/* ============ HOME + LEARN ============ */
+$('#homeBins').innerHTML=BINS.map(b=>`<button class="cbin" style="--c:var(--${b.id})" data-go="tong-${b.id}"><span class="body" aria-hidden="true">${b.ic}</span><span class="lbl">${b.name}</span></button>`).join('');
+requestAnimationFrame(()=>$('#homeBins').classList.add('drop'));
+$('#binDetails').innerHTML=BINS.map(b=>`<details class="bininfo" id="bin-${b.id}" style="--c:var(--${b.id})">
+ <summary><span class="sw" aria-hidden="true">${b.ic}</span><b>${b.name}</b><span class="chev" aria-hidden="true">›</span></summary>
+ <div class="inner"><div class="cols"><div><h4>✅ Boleh</h4><ul>${b.yes.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+ <div><h4>❌ Jangan</h4><ul>${b.no.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+ <div class="tipbox">💡 ${b.why}</div></div></details>`).join('');
+{const max=Math.log10(DECAY[DECAY.length-1][1]);
+ $('#decay').innerHTML=DECAY.map(([n,d,l,c])=>`<div class="drow"><span>${n}</span><div class="dbar" role="img" aria-label="${n}: ${l}"><i style="--c:var(--${c});width:${Math.max(8,Math.log10(d)/max*100)}%;opacity:.85"></i><em>${l}</em></div></div>`).join('')}
+
+/* ============ QUIZ ============ */
+const quiz={active:false,qs:[],i:0,score:0,marks:[],answered:false,source:'bank'};
+function renderQuizStart(){
+  quiz.active=false;
+  $('#quizArea').innerHTML=`<div class="qcard"><p class="qtext">Uji pengetahuan 3R anda.</p>
+   <p>10 soalan rawak. Setiap jawapan betul memberi 10 mata hijau.</p>
+   <div class="btns"><button class="btn" id="qStart">Mula kuiz</button>
+   <button class="btn blue" id="qAI" ${ai.sample?'':'hidden'}>✨ Soalan baharu oleh AI</button></div>
+   <p class="status" id="qStatus"></p></div>`;
+  $('#qStart').onclick=()=>startQuiz(shuffle(QBANK).slice(0,10).map(prepQ),'bank');
+  $('#qAI').onclick=genAIQuiz;
+  renderBoard();
+}
+function prepQ(q){const idx=shuffle(q.o.map((_,i)=>i));return{q:q.q,o:idx.map(i=>q.o[i]),a:idx.indexOf(q.a),e:q.e}}
+function startQuiz(qs,src){Object.assign(quiz,{active:true,qs,i:0,score:0,marks:[],source:src});renderQ()}
+function renderQ(){
+  const q=quiz.qs[quiz.i];quiz.answered=false;
+  $('#quizArea').innerHTML=`<div class="qcard"><div class="qprog">${quiz.qs.map((_,k)=>`<i class="${k<quiz.i?(quiz.marks[k]?'done':'wrong'):k===quiz.i?'now':''}"></i>`).join('')}</div>
+  <p class="note">Soalan ${quiz.i+1} daripada ${quiz.qs.length}${quiz.source==='ai'?' · dijana AI':''}</p>
+  <p class="qtext">${esc(q.q)}</p><div class="opts">${q.o.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join('')}</div><div id="qFeed"></div></div>`;
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+}
+function answer(k){
+  if(quiz.answered)return;quiz.answered=true;
+  const q=quiz.qs[quiz.i],ok=k===q.a;quiz.marks[quiz.i]=ok;
+  if(ok){quiz.score++;addPoints(10)}
+  document.querySelectorAll('.opt').forEach(b=>{const kk=+b.dataset.k;b.disabled=true;if(kk===q.a)b.classList.add('right');else if(kk===k)b.classList.add('wrongpick')});
+  $('#qFeed').innerHTML=`<div class="explain"><b>${ok?'Betul! 🎉':'Belum tepat.'}</b> ${esc(q.e||'')}</div>
+   <div class="btns"><button class="btn" id="qNext">${quiz.i+1<quiz.qs.length?'Soalan seterusnya':'Lihat keputusan'}</button></div>`;
+  $('#qNext').onclick=()=>{quiz.i++;quiz.i<quiz.qs.length?renderQ():endQuiz()};$('#qNext').focus();
+}
+function endQuiz(){
+  quiz.active=false;const s=quiz.score,n=quiz.qs.length,pct=s/n;
+  const [badge,title]=pct>=.9?['🏆','Wira Hijau']:pct>=.7?['🌳','Pelindung Alam']:pct>=.5?['🌿','Sahabat Bumi']:['🌱','Tunas Hijau'];
+  $('#quizArea').innerHTML=`<div class="qcard"><div class="badge">${badge}</div><p class="qtext">${title}</p>
+   <p>Anda menjawab <b>${s}</b> daripada <b>${n}</b> soalan dengan betul.</p>
+   <div class="field"><input id="qName" maxlength="24" placeholder="Nama dan kelas, contoh: Aina 4 Bestari" aria-label="Nama untuk papan skor"><button class="btn" id="qSave">Simpan skor</button></div>
+   <div class="btns"><button class="btn alt" id="qAgain">Cuba lagi</button><button class="btn alt" data-go="belajar">Ulang kaji</button></div></div>`;
+  $('#qSave').onclick=()=>{const nm=$('#qName').value.trim()||'Tanpa nama';const b=store.get('jgg-board',[]);b.push({nm,s,n,t:Date.now()});b.sort((x,y)=>y.s/y.n-x.s/x.n||x.t-y.t);store.set('jgg-board',b.slice(0,10));$('#qSave').disabled=true;$('#qSave').textContent='Disimpan';renderBoard()};
+  $('#qAgain').onclick=renderQuizStart;
+}
+function renderBoard(){
+  const b=store.get('jgg-board',[]);
+  $('#board').innerHTML=`<h3>Papan skor peranti ini</h3>`+(b.length?`<ol>${b.map(r=>`<li><b>${esc(r.nm)}</b> — ${r.s}/${r.n}</li>`).join('')}</ol>`:`<p class="note">Belum ada skor. Jadilah yang pertama!</p>`);
+}
+async function genAIQuiz(){
+  const st=$('#qStatus');$('#qAI').disabled=true;st.textContent='Eko sedang menyediakan soalan baharu… (mungkin ambil masa hingga seminit)';
+  try{
+    const data=await ai.sample.json(`Anda menulis kuiz alam sekitar untuk pelajar sekolah di Malaysia (umur 10-17). Tulis 5 soalan aneka pilihan BAHARU dalam Bahasa Melayu yang mudah difahami tentang 3R, kitar semula, jimat tenaga, plastik sekali guna, perubahan iklim atau biodiversiti Malaysia. Maklumat mesti tepat dari segi fakta. Tong di sudut ini: Sisa Am (merah marun), Kertas (biru), Sisa Organik (hijau), Kaca (coklat), Logam & Plastik (oren).
+Balas HANYA dengan tatasusunan JSON: [{"q":"soalan","o":["pilihan1","pilihan2","pilihan3","pilihan4"],"a":0,"e":"penerangan ringkas satu ayat"}] dengan "a" ialah indeks jawapan betul (0-3).`,{modelTier:'default',cache:false});
+    const qs=(Array.isArray(data)?data:[]).filter(x=>x&&typeof x.q==='string'&&Array.isArray(x.o)&&x.o.length===4&&Number.isInteger(x.a)&&x.a>=0&&x.a<4).slice(0,5);
+    if(qs.length<3)throw{code:'bad'};
+    startQuiz(qs.map(prepQ),'ai');
+  }catch(e){st.textContent=aiErr(e);$('#qAI').disabled=false}
+}
+
+/* ============ EKO AI ============ */
+const ai={sample:null,images:false,turns:[],ctl:null};
+const RULES=`Anda ialah "Eko", pembantu AI yang mesra di Sudut 3R "Jom Go Green!" sebuah sekolah di Malaysia. Pengguna ialah pelajar sekolah dan pelawat.
+Peraturan:
+- Jawab dalam Bahasa Melayu yang mudah, mesra dan positif (boleh guna emoji sedikit). Jika pengguna bertanya dalam bahasa lain, jawab dalam bahasa itu.
+- Jawapan ringkas: maksimum 120 patah perkataan.
+- Fokus pada alam sekitar, 3R, kitar semula, kompos, jimat tenaga dan air, plastik sekali guna, perubahan iklim dan hidupan liar. Jika soalan di luar topik, bawa semula perbualan dengan sopan ke topik alam sekitar.
+- Tong di sudut ini: Sisa Am (merah marun: tisu, polistirena kotor, pembungkus snek berlapis), Kertas (biru), Sisa Organik (hijau: sisa makanan, kulit buah, daun), Kaca (coklat), Logam & Plastik (oren: tin, botol plastik, bekas plastik bersih). Bila menyebut tong, nyatakan nama dan warnanya.
+- Bateri, mentol dan barang elektronik: nasihatkan dihantar ke pusat kutipan e-sisa.
+- Jangan reka fakta. Jika tidak pasti, katakan begitu dan cadangkan bertanya guru.
+Balas "Faham" sahaja untuk mengesahkan.`;
+function bubble(who,html){const d=document.createElement('div');d.className='msg '+who;d.innerHTML=(who==='eko'?'<span class="who">Eko</span>':'')+html;$('#chat').appendChild(d);d.scrollIntoView({block:'end',behavior:'smooth'});return d}
+const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+bubble('eko','Hai! Saya Eko 🌱 Tanya saya apa sahaja tentang kitar semula dan alam sekitar. Contohnya, "Botol kicap masuk tong mana?"');
+const CHIPS=['Kotak air minuman masuk tong mana?','Kenapa plastik bahaya kepada penyu?','Macam mana nak buat kompos?','Beri 3 idea guna semula botol plastik','Apa itu jejak karbon?'];
+$('#chips').innerHTML=CHIPS.map(c=>`<button>${c}</button>`).join('');
+$('#chips').onclick=e=>{const b=e.target.closest('button');if(b){$('#ask').value=b.textContent;send()}};
+$('#send').onclick=send;$('#ask').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+function offlineAnswer(q){
+  const t=q.toLowerCase();
+  const hit=ITEMS.find(it=>it.k.some(k=>t.includes(k)));
+  if(hit){const b=BIN[hit.b];return `**${hit.n}** masuk tong **${b.name}**. ${b.why}`}
+  for(const b of BINS){const y=b.yes.find(x=>t.includes(x.toLowerCase().split(' ')[0])&&x.length>3);if(y)return `Itu biasanya masuk tong **${b.name}**. ${b.why}`}
+  if(/bateri|mentol|telefon|elektronik/.test(t))return 'Bateri, mentol dan barang elektronik tidak masuk mana-mana tong di sini. Hantar ke pusat kutipan e-sisa atau serahkan kepada guru.';
+  if(/kompos/.test(t))return 'Kompos dibuat daripada sisa organik seperti kulit buah, sayur dan daun. Campurkan bahan "hijau" (sisa makanan) dan "coklat" (daun kering), pastikan lembap dan kacau seminggu sekali. Masukkan sisa ini ke tong **Sisa Organik**.';
+  if(/3r|kurang|guna semula|kitar/.test(t))return '3R bermaksud **Kurangkan** (elak membazir), **Guna Semula** (beri fungsi baharu) dan **Kitar Semula** (asingkan ikut tong). Lihat tab Belajar untuk contoh.';
+  return 'Saya dalam mod luar talian, jadi saya hanya boleh menjawab soalan tentang tong di sudut ini. Cuba taip nama sesuatu sampah, contohnya "tin" atau "tisu", atau buka tab Belajar.';
+}
+function aiErr(e){
+  const c=e&&e.code;
+  if(c==='not_granted')return 'Eko AI tidak dibenarkan pada paparan ini. Eko akan menjawab dalam mod luar talian.';
+  if(c==='rate_limited')return 'Terlalu banyak soalan serentak. Tunggu sebentar, kemudian cuba lagi.';
+  if(c==='cancelled')return 'Dihentikan.';
+  if(c==='bad')return 'AI tidak memulangkan soalan yang lengkap. Cuba sekali lagi atau guna soalan sedia ada.';
+  return 'Eko tidak dapat menjawab sekarang. Cuba lagi sebentar lagi.';
+}
+async function send(){
+  const q=$('#ask').value.trim();if(!q)return;$('#ask').value='';
+  bubble('me',esc(q));
+  if(!ai.sample){bubble('eko',md(offlineAnswer(q)));return}
+  const b=bubble('eko','<i>Sedang berfikir…</i>');
+  ai.turns.push({role:'user',content:q});
+  const turns=[{role:'user',content:RULES},{role:'assistant',content:'Faham'},...ai.turns.slice(-8)];
+  ai.ctl=new AbortController();$('#stopAI').hidden=false;$('#send').disabled=true;
+  try{
+    const {text}=await ai.sample(turns,{cache:false,modelTier:'quick',signal:ai.ctl.signal,onText:({text})=>{b.innerHTML='<span class="who">Eko</span>'+md(text)}});
+    b.innerHTML='<span class="who">Eko</span>'+md(text);ai.turns.push({role:'assistant',content:text});
+  }catch(e){
+    ai.turns.pop();
+    b.innerHTML='<span class="who">Eko</span>'+(e.text?md(e.text)+'<br>':'')+esc(aiErr(e));
+    if(e.code==='not_granted'){b.innerHTML+='<br><br>'+md(offlineAnswer(q));setAI(null)}
+  }finally{$('#stopAI').hidden=true;$('#send').disabled=false}
+}
+$('#stopAI').onclick=()=>ai.ctl&&ai.ctl.abort();
+$('#scan').addEventListener('change',async e=>{
+  const f=e.target.files&&e.target.files[0];e.target.value='';if(!f||!ai.sample)return;
+  const url=URL.createObjectURL(f);
+  bubble('me',`<div class="scanres"><img src="${url}" alt="Gambar sampah yang diimbas"><span>Tong mana untuk ini?</span></div>`);
+  const b=bubble('eko','<i>Sedang melihat gambar…</i>');
+  try{
+    const r=await ai.sample.json(`Gambar ini ialah sampah yang pelajar mahu buang di sudut kitar semula sekolah di Malaysia. Kenal pasti bahan utama dan pilih SATU tong: "am" (Sisa Am: kotor/berminyak/berlapis/tidak boleh dikitar), "kertas", "organik" (makanan/tumbuhan), "kaca", "logam" (logam & plastik), atau "esisa" jika ia bateri/elektronik/mentol. Jika gambar bukan sampah, guna "tiada".
+Balas HANYA JSON: {"bahan":"nama bahan dalam Bahasa Melayu","tong":"am|kertas|organik|kaca|logam|esisa|tiada","sebab":"satu ayat ringkas","tip":"satu tip ringkas sebelum membuang"}`,{images:f,modelTier:'default'});
+    let where;
+    if(BIN[r.tong]){where=`tong <b>${BIN[r.tong].name}</b> ${BIN[r.tong].ic}`}
+    else if(r.tong==='esisa')where='<b>pusat kutipan e-sisa</b> (bukan mana-mana tong di sini)';
+    else where=null;
+    b.innerHTML='<span class="who">Eko</span>'+(where?`Ini nampaknya <b>${esc(r.bahan||'bahan ini')}</b>. Masukkan ke ${where}.<br>${esc(r.sebab||'')}${r.tip?'<br>💡 '+esc(r.tip):''}`:'Saya tidak nampak sampah dalam gambar ini. Cuba ambil gambar yang lebih dekat.');
+    if(BIN[r.tong])addPoints(5);
+  }catch(err){b.innerHTML='<span class="who">Eko</span>'+esc(aiErr(err))}
+});
+function setAI(s){
+  ai.sample=s;
+  $('#aiStatus').textContent=s?'Eko AI dalam talian. Jawapan AI mungkin tersilap; semak dengan guru jika ragu.':'Mod luar talian: Eko menjawab berdasarkan panduan tong sudut ini.';
+  const sl=$('#scanLbl');sl.hidden=true;
+  if(s)s.limits().then(l=>{if(l&&l.images){sl.hidden=false}}).catch(()=>{});
+  const qa=document.getElementById('qAI');if(qa)qa.hidden=!s;
+}
+(async()=>{
+  let s=null;
+  try{if(window.claude&&typeof claude.use==='function')s=await claude.use('sample')}catch(e){s=null}
+  setAI(s);
+})();
+
+/* ============ VR GAME ============ */
+const V={inited:false,running:false,mode:'screen',items:[],idx:0,score:0,busy:false,ended:false,
+  yaw:0,pitch:-0.12,gyro:false,gyroQ:null,yawOff:null,gazeBin:null,dwell:0,particles:[],t0:0};
+let renderer,scene,camera,camL,camR,ray,pickables=[],binGroups={},itemObj=null,hud,hudCtx,hudTex,reticle,ring;
+const R=4, ANG=[-56,-28,0,28,56];
+function initVR(){
+  if(V.inited)return true;
+  if(!window.THREE){$('#vrLoadNote').textContent='Enjin 3D tidak dapat dimuatkan. Semak sambungan internet dan muat semula halaman.';return false}
+  const st=$('#vrStage');
+  renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  st.prepend(renderer.domElement);
+  scene=new THREE.Scene();scene.background=new THREE.Color('#cfe7f3');scene.fog=new THREE.Fog('#cfe7f3',10,26);
+  camera=new THREE.PerspectiveCamera(70,1,.05,100);camera.position.set(0,1.6,0);camera.rotation.order='YXZ';scene.add(camera);
+  camL=new THREE.PerspectiveCamera(80,1,.05,100);camR=new THREE.PerspectiveCamera(80,1,.05,100);
+  ray=new THREE.Raycaster();
+  scene.add(new THREE.HemisphereLight(0xffffff,0x5d8a4e,.8));
+  const sun=new THREE.DirectionalLight(0xffffff,.65);sun.position.set(3,7,3);scene.add(sun);
+  // ground
+  const ground=new THREE.Mesh(new THREE.CircleGeometry(30,48),new THREE.MeshLambertMaterial({color:'#6fa85c'}));ground.rotation.x=-Math.PI/2;scene.add(ground);
+  const mat=new THREE.Mesh(new THREE.RingGeometry(3.3,4.8,48,1,Math.PI/2-1.25,2.5),new THREE.MeshLambertMaterial({color:'#3d8f3a'}));mat.rotation.x=-Math.PI/2;mat.position.y=.01;mat.rotation.z=0;scene.add(mat);
+  // trees & hanging green balls
+  for(let i=0;i<14;i++){const a=(i/14)*Math.PI*2,d=10+Math.random()*4;const t=new THREE.Group();
+    const tr=new THREE.Mesh(new THREE.CylinderGeometry(.15,.2,1.4),new THREE.MeshLambertMaterial({color:'#7a5230'}));tr.position.y=.7;
+    const cr=new THREE.Mesh(new THREE.SphereGeometry(1+Math.random()*.5,12,10),new THREE.MeshLambertMaterial({color:i%2?'#2f8f44':'#4aa55a'}));cr.position.y=2.1;
+    t.add(tr,cr);t.position.set(Math.sin(a)*d,0,-Math.cos(a)*d);scene.add(t)}
+  // banner wall
+  const bc=document.createElement('canvas');bc.width=1024;bc.height=400;const bx=bc.getContext('2d');
+  const gr=bx.createLinearGradient(0,0,0,400);gr.addColorStop(0,'#dff0fb');gr.addColorStop(1,'#bfe3b0');bx.fillStyle=gr;bx.fillRect(0,0,1024,400);
+  bx.fillStyle='#2f9a44';bx.fillRect(170,80,684,130);bx.fillStyle='#fff';bx.font='800 96px "Baloo 2", sans-serif';bx.textAlign='center';bx.textBaseline='middle';bx.fillText('JOM GO GREEN!',512,150);
+  bx.fillStyle='#1f6d33';bx.fillRect(270,230,484,64);bx.fillStyle='#fff';bx.font='700 40px "Baloo 2", sans-serif';bx.fillText('SELAMATKAN BUMI KITA',512,264);
+  const banner=new THREE.Mesh(new THREE.PlaneGeometry(5.2,2.03),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(bc)}));banner.position.set(0,2.6,-6.5);scene.add(banner);
+  const wall=new THREE.Mesh(new THREE.PlaneGeometry(9,4),new THREE.MeshLambertMaterial({color:'#f0cfc0'}));wall.position.set(0,2,-6.55);scene.add(wall);
+  [-2.8,-1.2,1.2,2.8].forEach((x,i)=>{const s=new THREE.Mesh(new THREE.IcosahedronGeometry(.28,1),new THREE.MeshLambertMaterial({color:'#2e7d32',flatShading:true}));s.position.set(x,3.5-(i%2)*.5,-6.2);scene.add(s)});
+  // bins
+  BINS.forEach((b,i)=>{const g=makeBin(b);const a=ANG[i]*Math.PI/180;g.position.set(Math.sin(a)*R,0,-Math.cos(a)*R);g.lookAt(0,0,0);scene.add(g);binGroups[b.id]=g});
+  // reticle
+  ring=new THREE.Mesh(new THREE.RingGeometry(.012,.02,32),new THREE.MeshBasicMaterial({color:0xffffff,depthTest:false,transparent:true,opacity:.9}));
+  reticle=new THREE.Group();reticle.add(ring);reticle.position.set(0,0,-1.2);reticle.renderOrder=999;camera.add(reticle);reticle.visible=false;
+  // hud
+  const hc=document.createElement('canvas');hc.width=1024;hc.height=256;hudCtx=hc.getContext('2d');hudTex=new THREE.CanvasTexture(hc);
+  hud=new THREE.Mesh(new THREE.PlaneGeometry(1.3,.325),new THREE.MeshBasicMaterial({map:hudTex,transparent:true,depthTest:false}));hud.position.set(0,.5,-1.6);hud.renderOrder=998;camera.add(hud);
+  // input
+  const cv=renderer.domElement;let down=null;
+  cv.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,yaw:V.yaw,pitch:V.pitch,moved:false};cv.setPointerCapture(e.pointerId)});
+  cv.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>6)down.moved=true;
+    if(!V.gyro){V.yaw=Math.max(-1.3,Math.min(1.3,down.yaw+dx*.005));V.pitch=Math.max(-.7,Math.min(.5,down.pitch+dy*.004))}});
+  cv.addEventListener('pointerup',e=>{if(!down)return;const m=down.moved;down=null;if(m)return;
+    if(V.ended){startRound();return}
+    if(V.mode==='cardboard'){if(V.gazeBin)throwTo(V.gazeBin);return}
+    const r=cv.getBoundingClientRect();ray.setFromCamera({x:(e.clientX-r.left)/r.width*2-1,y:-(e.clientY-r.top)/r.height*2+1},camera);
+    const h=ray.intersectObjects(pickables,false)[0];if(h)throwTo(h.object.userData.bin)});
+  window.addEventListener('resize',resizeVR);
+  window.addEventListener('deviceorientation',onOrient);
+  $('#binBtns').innerHTML=BINS.map(b=>`<button style="--c:var(--${b.id})" data-bin="${b.id}">${b.name}</button>`).join('');
+  $('#binBtns').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(V.ended)startRound();else throwTo(b.dataset.bin)};
+  V.inited=true;return true;
+}
+function labelCanvas(text,bg,fg,w=512,h=128,size=56){
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+  x.fillStyle=bg;const r=28;x.beginPath();x.moveTo(r,0);x.arcTo(w,0,w,h,r);x.arcTo(w,h,0,h,r);x.arcTo(0,h,0,0,r);x.arcTo(0,0,w,0,r);x.fill();
+  x.fillStyle=fg;x.textAlign='center';x.textBaseline='middle';let s=size;x.font=`800 ${s}px "Baloo 2", sans-serif`;
+  while(x.measureText(text).width>w-30&&s>20){s-=2;x.font=`800 ${s}px "Baloo 2", sans-serif`}
+  x.fillText(text,w/2,h/2+4);return new THREE.CanvasTexture(c)}
+function makeBin(b){
+  const col=cssVar('--'+b.id)||'#888';const g=new THREE.Group();
+  const m=new THREE.MeshStandardMaterial({color:col,roughness:.55});const dark=new THREE.MeshStandardMaterial({color:new THREE.Color(col).multiplyScalar(.75),roughness:.55});
+  const body=new THREE.Mesh(new THREE.BoxGeometry(.72,1.05,.72),m);body.position.y=.53;
+  const lidP=new THREE.Group();lidP.position.set(0,1.06,-.37);
+  const lid=new THREE.Mesh(new THREE.BoxGeometry(.8,.08,.78),dark);lid.position.set(0,.04,.38);lidP.add(lid);
+  const face=new THREE.Mesh(new THREE.PlaneGeometry(.56,.56),new THREE.MeshBasicMaterial({map:iconTex(b,col)}));face.position.set(0,.58,.361);
+  const tag=new THREE.Mesh(new THREE.PlaneGeometry(1.1,.275),new THREE.MeshBasicMaterial({map:labelCanvas(b.name,col,'#fff'),transparent:true}));tag.position.set(0,1.55,0);
+  [body,lid,face,tag].forEach(o=>{o.userData.bin=b.id;pickables.push(o)});
+  g.add(body,lidP,face,tag);g.userData={lidP,m,col,open:0};return g}
+function iconTex(b,col){const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+  x.fillStyle='#ffffff';x.fillRect(0,0,256,256);x.fillStyle=col;x.fillRect(10,10,236,236);x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';
+  let fs=40;const nm=b.name.toUpperCase();x.font=`800 ${fs}px "Baloo 2", sans-serif`;while(x.measureText(nm).width>220&&fs>18){fs-=2;x.font=`800 ${fs}px "Baloo 2", sans-serif`}x.fillText(nm,128,48);
+  x.font='120px sans-serif';x.fillText(b.ic,128,150);return new THREE.CanvasTexture(c)}
+function makeItemMesh(it){
+  const g=new THREE.Group();const m=new THREE.MeshStandardMaterial({color:it.c,roughness:.45,transparent:!!it.clear,opacity:it.clear?.75:1,side:THREE.DoubleSide});
+  const add=(geo,y=0,mat=m)=>{const o=new THREE.Mesh(geo,mat);o.position.y=y;g.add(o);return o};
+  switch(it.s){
+    case 'bottle':add(new THREE.CylinderGeometry(.09,.09,.3,20));add(new THREE.CylinderGeometry(.035,.085,.12,20),.21);add(new THREE.CylinderGeometry(.038,.038,.04,16),.29,new THREE.MeshStandardMaterial({color:'#e44'}));break;
+    case 'jar':add(new THREE.CylinderGeometry(.11,.11,.2,20));add(new THREE.CylinderGeometry(.1,.1,.04,20),.12,new THREE.MeshStandardMaterial({color:'#c33'}));break;
+    case 'can':add(new THREE.CylinderGeometry(.07,.07,.22,24));add(new THREE.CylinderGeometry(.071,.071,.1,24),0,new THREE.MeshStandardMaterial({color:'#d33',roughness:.3}));break;
+    case 'box':add(new THREE.BoxGeometry(.36,.26,.26));break;
+    case 'book':add(new THREE.BoxGeometry(.3,.05,.22));add(new THREE.BoxGeometry(.29,.042,.21),.001,new THREE.MeshStandardMaterial({color:'#fff'})).position.x=.008;break;
+    case 'sheet':{const o=add(new THREE.BoxGeometry(.38,.015,.28));o.rotation.z=.15;add(new THREE.BoxGeometry(.38,.015,.28),.03).rotation.z=-.1;break}
+    case 'cup':add(new THREE.CylinderGeometry(.09,.065,.16,20,1,true));break;
+    case 'banana':{const o=add(new THREE.TorusGeometry(.14,.035,8,20,Math.PI*.9));o.rotation.z=Math.PI*.55;break}
+    case 'blob':add(new THREE.DodecahedronGeometry(.12,1));break;
+    case 'leaf':{const o=add(new THREE.SphereGeometry(.16,12,8));o.scale.set(1,.12,.55);break}
+    case 'tissue':{const o=add(new THREE.IcosahedronGeometry(.1,0));o.scale.set(1.2,.9,1);break}
+    case 'foam':add(new THREE.BoxGeometry(.3,.08,.2));add(new THREE.BoxGeometry(.2,.02,.1),.04,new THREE.MeshStandardMaterial({color:'#c98a2e'}));break;
+    case 'pack':{const o=add(new THREE.BoxGeometry(.26,.04,.18));o.rotation.x=.3;break}
+    case 'pen':{const o=add(new THREE.CylinderGeometry(.015,.015,.3,10));o.rotation.z=Math.PI/2.4;break}
+  }
+  const tag=new THREE.Mesh(new THREE.PlaneGeometry(.9,.225),new THREE.MeshBasicMaterial({map:labelCanvas(it.n,'rgba(21,48,42,.88)','#fff'),transparent:true}));tag.position.y=-.5;tag.userData.tag=true;
+  const wrap=new THREE.Group();wrap.add(g,tag);wrap.userData={spin:g};return wrap}
+function drawHUD(main,sub,color){
+  const x=hudCtx,w=1024,h=256;x.clearRect(0,0,w,h);
+  x.fillStyle='rgba(21,48,42,.86)';const r=40;x.beginPath();x.moveTo(r,0);x.arcTo(w,0,w,h,r);x.arcTo(w,h,0,h,r);x.arcTo(0,h,0,0,r);x.arcTo(0,0,w,0,r);x.fill();
+  if(color){x.fillStyle=color;x.fillRect(0,0,24,h)}
+  x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';
+  let s=72;x.font=`800 ${s}px "Baloo 2", sans-serif`;while(x.measureText(main).width>w-80&&s>30){s-=2;x.font=`800 ${s}px "Baloo 2", sans-serif`}x.fillText(main,w/2,sub?95:h/2);
+  if(sub){s=40;x.font=`400 ${s}px "Atkinson Hyperlegible", sans-serif`;while(x.measureText(sub).width>w-80&&s>22){s-=2;x.font=`400 ${s}px "Atkinson Hyperlegible", sans-serif`}x.fillStyle='#d9efe2';x.fillText(sub,w/2,185)}
+  hudTex.needsUpdate=true}
+function startRound(){
+  V.items=shuffle(ITEMS).slice(0,10);V.idx=0;V.score=0;V.ended=false;V.busy=false;
+  $('#vrScore').textContent='0 / 10';spawn()}
+function spawn(){
+  if(itemObj){scene.remove(itemObj);itemObj=null}
+  if(V.idx>=V.items.length){finish();return}
+  const it=V.items[V.idx];itemObj=makeItemMesh(it);itemObj.position.set(0,1.5,-2.1);itemObj.userData.spin.scale.setScalar(1.8);itemObj.userData.base=itemObj.position.clone();scene.add(itemObj);
+  drawHUD(`${it.n}`,`Sampah ${V.idx+1}/10: ${V.mode==='cardboard'?'pandang tong yang betul':'seret untuk lihat semua tong, ketik yang betul'}`);V.busy=false}
+function throwTo(binId){
+  if(V.busy||V.ended||!itemObj)return;V.busy=true;V.dwell=0;
+  const it=V.items[V.idx],g=binGroups[binId],from=itemObj.position.clone(),to=g.position.clone().setY(1.25),t0=performance.now(),dur=700;
+  itemObj.children.forEach(c=>{if(c.userData.tag)c.visible=false});
+  V.anim={t0,dur,from,to,g,done:()=>judge(it,binId)};g.userData.target=1}
+function judge(it,binId){
+  const ok=it.b===binId;const g=binGroups[binId];setTimeout(()=>g.userData.target=0,350);
+  scene.remove(itemObj);itemObj=null;
+  if(ok){V.score++;addPoints(10);burst(g.position.clone().setY(1.3),'#7be08a');drawHUD('Betul! 🎉',`${it.n} → ${BIN[binId].name}`,'#2F9A44');navigator.vibrate&&navigator.vibrate(40)}
+  else{const right=BIN[it.b];binGroups[it.b].userData.flash=1.6;drawHUD(`Sepatutnya: ${right.name}`,right.why.split('.')[0]+'.','#B23A55');navigator.vibrate&&navigator.vibrate([60,40,60])}
+  $('#vrScore').textContent=`${V.score} / 10`;V.idx++;setTimeout(spawn,ok?1300:3000)}
+function finish(){
+  V.ended=true;const s=V.score;
+  drawHUD(`Tamat! Skor ${s}/10 ${s>=9?'🏆':s>=7?'🌳':'🌱'}`,V.mode==='cardboard'?'Ketik skrin untuk main semula':'Ketik mana-mana tong untuk main semula','#EB8212');
+  const b=store.get('jgg-vrbest',0);if(s>b)store.set('jgg-vrbest',s)}
+function burst(p,col){for(let i=0;i<16;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.035,6,6),new THREE.MeshBasicMaterial({color:col}));m.position.copy(p);
+  m.userData.v=new THREE.Vector3((Math.random()-.5)*2.2,Math.random()*2.4+.8,(Math.random()-.5)*2.2);m.userData.life=.9;scene.add(m);V.particles.push(m)}}
+/* device orientation -> camera */
+let zee,eu,q0,q1,qYaw,YAX;
+if(window.THREE){zee=new THREE.Vector3(0,0,1);eu=new THREE.Euler();q0=new THREE.Quaternion();q1=new THREE.Quaternion(-Math.sqrt(.5),0,0,Math.sqrt(.5));qYaw=new THREE.Quaternion();YAX=new THREE.Vector3(0,1,0)}
+function onOrient(e){
+  if(e.alpha==null||V.mode!=='cardboard')return;V.gyro=true;
+  const d=Math.PI/180,orient=((screen.orientation&&screen.orientation.angle)||window.orientation||0)*d;
+  eu.set(e.beta*d,e.alpha*d,-e.gamma*d,'YXZ');const q=new THREE.Quaternion().setFromEuler(eu);q.multiply(q1);q.multiply(q0.setFromAxisAngle(zee,-orient));
+  if(V.yawOff===null){const t=new THREE.Euler().setFromQuaternion(q,'YXZ');V.yawOff=-t.y}
+  qYaw.setFromAxisAngle(YAX,V.yawOff);V.gyroQ=qYaw.clone().multiply(q)}
+function resizeVR(){if(!renderer)return;const st=$('#vrStage');renderer.setSize(st.clientWidth,st.clientHeight,false);const asp=st.clientWidth/st.clientHeight;camera.aspect=asp;camera.fov=asp<1.2?Math.min(100,2*Math.atan(Math.tan(45*Math.PI/180)/asp)*180/Math.PI):70;camera.updateProjectionMatrix()}
+let last=0;
+function loop(t){
+  if(!V.running)return;requestAnimationFrame(loop);const dt=Math.min(.05,(t-(last||t))/1000);last=t;
+  if(V.mode==='cardboard'&&V.gyroQ)camera.quaternion.copy(V.gyroQ);else camera.rotation.set(V.pitch,V.yaw,0,'YXZ');
+  // item bob
+  if(itemObj&&!V.anim){itemObj.userData.spin.rotation.y+=dt*1.2;itemObj.position.y=itemObj.userData.base.y+Math.sin(t/500)*.04}
+  if(V.anim){const a=V.anim,k=Math.min(1,(t-a.t0)/a.dur);if(itemObj){itemObj.position.lerpVectors(a.from,a.to,k);itemObj.position.y+=Math.sin(k*Math.PI)*.9;itemObj.userData.spin.rotation.x+=dt*8}
+    if(k>=1){V.anim=null;a.done()}}
+  // bins: lids + flash
+  for(const id in binGroups){const g=binGroups[id],u=g.userData;u.open+=((u.target||0)-u.open)*Math.min(1,dt*10);u.lidP.rotation.x=-1.3*u.open;
+    const hl=(V.gazeBin===id&&!V.busy&&!V.ended)?1:0;const sc=1+.06*hl;g.scale.lerp(new THREE.Vector3(sc,sc,sc),.2);
+    if(u.flash>0){u.flash-=dt;u.m.emissive.set(Math.sin(u.flash*14)>0?'#ffffff':'#000000');u.m.emissiveIntensity=.35}else{u.m.emissive.set('#000000')}}
+  // particles
+  V.particles=V.particles.filter(p=>{p.userData.life-=dt;p.userData.v.y-=dt*5;p.position.addScaledVector(p.userData.v,dt);if(p.userData.life<=0){scene.remove(p);return false}return true});
+  // gaze
+  if(V.mode==='cardboard'){camera.updateMatrixWorld();ray.setFromCamera({x:0,y:0},camera);const h=ray.intersectObjects(pickables,false)[0];const id=h?h.object.userData.bin:null;
+    if(id!==V.gazeBin){V.gazeBin=id;V.dwell=0}
+    if(id&&!V.busy&&!V.ended){V.dwell+=dt;if(V.dwell>=1.5){throwTo(id)}}
+    const p=Math.min(1,V.dwell/1.5);ring.geometry.dispose();ring.geometry=p>0?new THREE.RingGeometry(.012,.024,32,1,Math.PI/2,-p*Math.PI*2):new THREE.RingGeometry(.012,.02,32);
+    ring.material.color.set(id?'#7be08a':'#ffffff')}
+  else V.gazeBin=null;
+  const st=$('#vrStage'),w=st.clientWidth,h=st.clientHeight;
+  if(V.mode==='cardboard'){
+    camera.updateMatrixWorld();renderer.setScissorTest(true);
+    [[camL,-1,0],[camR,1,w/2]].forEach(([c,s,x])=>{c.position.copy(camera.position);c.quaternion.copy(camera.quaternion);c.translateX(s*.032);c.aspect=(w/2)/h;c.updateProjectionMatrix();c.updateMatrixWorld();
+      renderer.setViewport(x,0,w/2,h);renderer.setScissor(x,0,w/2,h);renderer.render(scene,c)});
+    renderer.setScissorTest(false)}
+  else{renderer.setViewport(0,0,w,h);renderer.render(scene,camera)}
+}
+async function beginVR(mode){
+  if(!initVR())return;
+  V.mode=mode;V.gyro=false;V.gyroQ=null;V.yawOff=null;V.yaw=0;V.pitch=-.12;
+  const st=$('#vrStage');$('#vrStart').hidden=true;$('#vrBar').hidden=false;
+  reticle.visible=mode==='cardboard';$('#vrCenter').hidden=mode!=='cardboard';
+  st.classList.toggle('stereo',mode==='cardboard');$('#binBtns').hidden=mode==='cardboard';
+  hud.position.set(0,mode==='cardboard'?.42:.5,-1.6);
+  if(mode==='cardboard'){
+    try{if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function')await DeviceOrientationEvent.requestPermission()}catch(e){}
+    st.classList.add('full');
+    try{if(st.requestFullscreen)await st.requestFullscreen();else if(st.webkitRequestFullscreen)st.webkitRequestFullscreen()}catch(e){}
+    try{await screen.orientation.lock('landscape')}catch(e){}
+    setTimeout(()=>{if(!V.gyro&&V.running)drawHUD('Sensor gerakan tidak dikesan','Seret skrin untuk memandang, ketik untuk buang')},2500);
+  }
+  if(mode==='screen')st.scrollIntoView({block:'center',behavior:'smooth'});
+  resizeVR();setTimeout(resizeVR,300);
+  V.running=true;last=0;requestAnimationFrame(loop);startRound();
+}
+function stopVR(){
+  if(!V.running)return;V.running=false;
+  const st=$('#vrStage');st.classList.remove('full','stereo');
+  try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}
+  try{screen.orientation.unlock()}catch(e){}
+  $('#vrStart').hidden=false;$('#vrBar').hidden=true;$('#binBtns').hidden=true;
+  if(itemObj){scene.remove(itemObj);itemObj=null}V.anim=null;
+  const best=store.get('jgg-vrbest',0);$('#vrLoadNote').textContent=best?`Skor terbaik di peranti ini: ${best}/10`:'';
+}
+$('#startScreen').onclick=()=>beginVR('screen');
+$('#startVR').onclick=()=>beginVR('cardboard');
+$('#vrExit').onclick=stopVR;
+$('#vrCenter').onclick=()=>{V.yawOff=null};
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&V.mode==='cardboard'&&V.running)stopVR();else resizeVR()});
+{const best=store.get('jgg-vrbest',0);if(best)$('#vrLoadNote').textContent=`Skor terbaik di peranti ini: ${best}/10`}
+
+route();
+</script>
+</body>
+</html>
