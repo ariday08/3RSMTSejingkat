@@ -179,6 +179,48 @@ details.bininfo .inner{padding:0 16px 16px;border-top:4px solid var(--c)}
 .status{font-size:.84rem;color:var(--muted);margin-top:6px}
 .scanres{display:flex;gap:12px;align-items:center}
 .scanres img{width:72px;height:72px;object-fit:cover;border-radius:10px}
+a{color:var(--kertas);font-weight:700}
+.back{display:inline-block;margin-bottom:8px;font-size:.92rem;text-decoration:none}
+/* kompos */
+.kgrid{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:16px;align-items:start;margin-top:12px}
+@media (max-width:520px){.kgrid{grid-template-columns:1fr}}
+.kbinwrap{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center}
+.kbinwrap svg{width:100%;max-width:190px;height:auto;display:block;margin:0 auto}
+.kflags{font-size:1.6rem;min-height:2rem;letter-spacing:.1em}
+.meter{margin:8px 0}
+.meter .lab{display:flex;justify-content:space-between;font-size:.9rem;font-weight:700}
+.meter .track{position:relative;height:16px;border-radius:8px;background:var(--chip);overflow:hidden;margin-top:4px}
+.meter .zone{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--organik) 30%,transparent)}
+.meter .pin{position:absolute;top:-2px;bottom:-2px;width:6px;margin-left:-3px;border-radius:3px;background:var(--ink);transition:left .4s}
+.mats{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;margin-top:10px}
+.mat{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 10px;text-align:left;font-size:.9rem;line-height:1.25}
+.mat .e{font-size:1.3rem;display:block}
+.mat small{color:var(--muted)}
+.diag{margin-top:12px;padding:12px;border-radius:12px;background:var(--chip);font-size:.95rem}
+.diag ul{margin:4px 0 0;padding-left:1.2em}
+.prog{height:14px;border-radius:7px;background:var(--chip);overflow:hidden;margin:6px 0}
+.prog i{display:block;height:100%;background:var(--organik);transition:width .6s}
+/* kitaran */
+.matpick{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.matpick button{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:700}
+.matpick button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,var(--surface))}
+.slots{list-style:none;padding:0;margin:10px 0;display:grid;gap:8px}
+.slot{display:flex;align-items:center;gap:10px;border:2px dashed var(--line);border-radius:12px;padding:10px 12px;min-height:52px;background:var(--surface);width:100%;text-align:left;font-size:.95rem}
+.slot .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-weight:800;font-family:var(--display)}
+.slot.full{border-style:solid}
+.slot.good{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--surface))}
+.slot.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.slot .ph{color:var(--muted)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.card{border:0;border-radius:12px;padding:10px 12px;background:var(--c);color:#fff;font-size:.92rem;text-align:left;max-width:100%}
+/* jejak */
+.treebox{background:linear-gradient(var(--sky,#d7ecf7),var(--bg));border-radius:16px;border:1px solid var(--line);text-align:center;padding:8px 0 0}
+.treebox svg{width:190px;height:190px}
+#tCrown,#tExtra{transform-box:fill-box;transform-origin:50% 100%;transition:transform .6s cubic-bezier(.3,1.5,.5,1)}
+#tCrown circle{transition:fill .6s}
+@media (prefers-reduced-motion:reduce){#tCrown,#tExtra,.meter .pin,.prog i{transition:none}}
+.pledgecard{border:3px solid var(--organik);border-radius:16px;padding:18px;text-align:center;background:var(--surface);margin-top:12px}
+.pledgecard .big{font-family:var(--display);font-size:1.4rem;font-weight:800;line-height:1.2}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 </head>
@@ -202,7 +244,7 @@ details.bininfo .inner{padding:0 16px 16px;border-top:4px solid var(--c)}
   <p class="hint">Ketik mana-mana tong untuk tahu apa yang boleh dimasukkan.</p>
 
   <div class="acts">
-    <button class="act" style="--c:var(--logam)" data-go="vr"><span class="e">🥽</span><span><b>Main Cabaran VR</b><span class="d">Asingkan 10 sampah ke tong yang betul dalam dunia 3D.</span></span></button>
+    <button class="act" style="--c:var(--logam)" data-go="aktiviti"><span class="e">🎮</span><span><b>Main Aktiviti Interaktif</b><span class="d">Cabaran VR, Kompos Ajaib, Perjalanan Sampah dan Jejak Hijau Saya.</span></span></button>
     <button class="act" style="--c:var(--am)" data-go="kuiz"><span class="e">❓</span><span><b>Jawab Kuiz</b><span class="d">10 soalan. Kumpul mata dan masuk papan skor.</span></span></button>
     <button class="act" style="--c:var(--kaca)" data-go="eko"><span class="e">🤖</span><span><b>Tanya Eko AI</b><span class="d">Tak pasti sampah ini masuk tong mana? Tanya atau imbas gambarnya.</span></span></button>
     <button class="act" style="--c:var(--kertas)" data-go="belajar"><span class="e">📚</span><span><b>Belajar 3R</b><span class="d">Kenapa alam sekitar penting, dan cara kitar semula yang betul.</span></span></button>
@@ -248,11 +290,12 @@ details.bininfo .inner{padding:0 16px 16px;border-top:4px solid var(--c)}
     <div class="decay" id="decay"></div>
     <p class="note">Anggaran yang biasa digunakan dalam pendidikan alam sekitar. Tempoh sebenar bergantung pada cahaya, suhu dan kelembapan. Skala bar adalah logaritma.</p>
   </div>
-  <div class="btns"><button class="btn" data-go="kuiz">Uji kefahaman saya</button><button class="btn alt" data-go="vr">Main cabaran VR</button></div>
+  <div class="btns"><button class="btn" data-go="kuiz">Uji kefahaman saya</button><button class="btn alt" data-go="aktiviti">Main aktiviti</button></div>
 </section>
 
 <!-- VR -->
 <section class="view" id="view-vr" aria-label="Cabaran VR">
+  <a class="back" href="#aktiviti">← Semua aktiviti</a>
   <h2>Cabaran VR: Asingkan Sampah</h2>
   <p class="note" style="margin-bottom:12px">Masukkan setiap sampah ke tong yang betul. Guna telefon dengan kotak VR (jenis Cardboard) atau main terus di skrin.</p>
   <div class="vrstage" id="vrStage">
@@ -278,6 +321,70 @@ details.bininfo .inner{padding:0 16px 16px;border-top:4px solid var(--c)}
       </div>
     </div>
   </div>
+</section>
+
+<!-- AKTIVITI -->
+<section class="view" id="view-aktiviti" aria-label="Aktiviti">
+  <h2>Aktiviti interaktif</h2>
+  <p class="note">Pilih satu aktiviti. Setiap aktiviti menambah mata hijau anda.</p>
+  <div class="acts">
+    <button class="act" style="--c:var(--logam)" data-go="vr"><span class="e">🥽</span><span><b>Cabaran VR</b><span class="d">Asingkan 10 sampah ke tong yang betul dalam dunia 3D. Boleh guna kotak VR.</span></span></button>
+    <button class="act" style="--c:var(--organik)" data-go="kompos"><span class="e">🪱</span><span><b>Kompos Ajaib</b><span class="d">Uruskan tong kompos sendiri. Seimbangkan bahan, air dan udara sehingga kompos siap.</span></span></button>
+    <button class="act" style="--c:var(--kertas)" data-go="kitaran"><span class="e">🔄</span><span><b>Perjalanan Sampah</b><span class="d">Susun langkah-langkah bagaimana botol, tin dan kertas menjadi barang baharu.</span></span></button>
+    <button class="act" style="--c:var(--kaca)" data-go="jejak"><span class="e">🌳</span><span><b>Jejak Hijau Saya</b><span class="d">Jawab 8 soalan tentang tabiat harian dan lihat pokok anda membesar.</span></span></button>
+  </div>
+</section>
+
+<!-- KOMPOS -->
+<section class="view" id="view-kompos" aria-label="Kompos Ajaib">
+  <a class="back" href="#aktiviti">← Semua aktiviti</a>
+  <h2>Kompos Ajaib 🪱</h2>
+  <p class="note">Masukkan bahan ke dalam tong kompos. Kompos yang sihat perlukan campuran bahan <b>hijau</b> (sisa basah) dan <b>coklat</b> (bahan kering), kelembapan yang sederhana, dan udara. Tekan <b>Tunggu 1 minggu</b> untuk lihat hasilnya.</p>
+  <div class="kgrid">
+    <div class="kbinwrap">
+      <svg id="kSvg" viewBox="0 0 200 230" role="img" aria-label="Tong kompos"></svg>
+      <div class="kflags" id="kFlags" aria-hidden="true"></div>
+      <div class="note" id="kWeek">Minggu 0</div>
+      <div class="prog" aria-hidden="true"><i id="kProg" style="width:0%"></i></div>
+      <div class="note" id="kProgTxt">Kompos 0% siap</div>
+    </div>
+    <div>
+      <div class="meter"><div class="lab"><span>Nisbah coklat : hijau</span><span id="mRatioV">–</span></div><div class="track"><span class="zone" style="left:40%;width:30%"></span><span class="pin" id="mRatio" style="left:0%"></span></div></div>
+      <div class="meter"><div class="lab"><span>Kelembapan</span><span id="mWetV">–</span></div><div class="track"><span class="zone" style="left:40%;width:20%"></span><span class="pin" id="mWet" style="left:0%"></span></div></div>
+      <div class="meter"><div class="lab"><span>Udara</span><span id="mAirV">–</span></div><div class="track"><span class="zone" style="left:50%;width:50%"></span><span class="pin" id="mAir" style="left:0%"></span></div></div>
+      <p class="note">Kawasan hijau pada setiap meter ialah julat yang ideal.</p>
+      <div class="btns"><button class="btn" id="kWait">⏩ Tunggu 1 minggu</button><button class="btn alt" id="kStir">🌀 Kacau</button><button class="btn alt" id="kReset">Mula semula</button></div>
+    </div>
+  </div>
+  <div class="diag" id="kDiag" aria-live="polite"></div>
+  <h3 style="margin-top:18px">Bahan untuk dimasukkan</h3>
+  <div class="mats" id="kMats"></div>
+</section>
+
+<!-- KITARAN -->
+<section class="view" id="view-kitaran" aria-label="Perjalanan Sampah">
+  <a class="back" href="#aktiviti">← Semua aktiviti</a>
+  <h2>Perjalanan Sampah 🔄</h2>
+  <p class="note">Apa yang berlaku selepas sampah dimasukkan ke tong kitar semula? Pilih bahan, kemudian ketik langkah-langkah di bawah mengikut urutan yang betul. Ketik langkah yang sudah disusun untuk mengeluarkannya.</p>
+  <div class="matpick" id="cPick"></div>
+  <ol class="slots" id="cSlots"></ol>
+  <div class="pool" id="cPool"></div>
+  <div class="btns"><button class="btn" id="cCheck" disabled>Semak urutan</button><button class="btn alt" id="cClear">Kosongkan</button></div>
+  <div id="cFeed" aria-live="polite"></div>
+</section>
+
+<!-- JEJAK -->
+<section class="view" id="view-jejak" aria-label="Jejak Hijau Saya">
+  <a class="back" href="#aktiviti">← Semua aktiviti</a>
+  <h2>Jejak Hijau Saya 🌳</h2>
+  <p class="note">Jawab dengan jujur tentang tabiat anda. Setiap pilihan hijau membuatkan pokok anda lebih subur.</p>
+  <div class="treebox"><svg viewBox="0 0 200 200" id="tSvg" role="img" aria-label="Pokok jejak hijau anda">
+    <ellipse cx="100" cy="188" rx="80" ry="10" fill="#7fb86a"/>
+    <rect id="tTrunk" x="93" y="120" width="14" height="68" rx="4" fill="#7a5230"/>
+    <g id="tCrown"><circle cx="100" cy="92" r="42"/><circle cx="68" cy="112" r="28"/><circle cx="132" cy="112" r="28"/><circle cx="100" cy="60" r="28"/></g>
+    <g id="tExtra"></g>
+  </svg></div>
+  <div id="jArea"></div>
 </section>
 
 <!-- KUIZ -->
@@ -389,16 +496,21 @@ function addPoints(n){points+=n;store.set('jgg-pts',points);$('#pts').textConten
 addPoints(0);
 
 /* ============ NAV ============ */
-const TABS=[['utama','🏠','Utama','--organik'],['belajar','📚','Belajar','--kertas'],['vr','🥽','VR','--logam'],['kuiz','❓','Kuiz','--am'],['eko','🤖','Eko AI','--kaca']];
+const TABS=[['utama','🏠','Utama','--organik'],['belajar','📚','Belajar','--kertas'],['aktiviti','🎮','Aktiviti','--logam'],['kuiz','❓','Kuiz','--am'],['eko','🤖','Eko AI','--kaca']];
 $('#tabs').innerHTML=TABS.map(([id,ic,l,c])=>`<button data-go="${id}" style="--tc:var(${c})"><span class="ic" aria-hidden="true">${ic}</span>${l}</button>`).join('');
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){location.hash=g.dataset.go}});
 function route(){
   let h=(location.hash||'#utama').slice(1);let binFocus=null;
   if(h.startsWith('tong-')){binFocus=h.slice(5);h='belajar'}
-  if(!TABS.some(t=>t[0]===h))h='utama';
+  const SUB={vr:'aktiviti',kompos:'aktiviti',kitaran:'aktiviti',jejak:'aktiviti'};
+  if(!TABS.some(t=>t[0]===h)&&!SUB[h])h='utama';
+  const tab=SUB[h]||h;
   document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on',s.id==='view-'+h));
-  document.querySelectorAll('#tabs button').forEach(b=>{if(b.dataset.go===h)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  document.querySelectorAll('#tabs button').forEach(b=>{if(b.dataset.go===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   if(h!=='vr')stopVR();
+  if(h==='kompos')kRender();
+  if(h==='kitaran')cRender();
+  if(h==='jejak'&&!J.started)jStart();
   if(binFocus&&BIN[binFocus]){const d=document.getElementById('bin-'+binFocus);if(d){d.open=true;setTimeout(()=>d.scrollIntoView({block:'start'}),50)}}
   else window.scrollTo(0,0);
   if(h==='kuiz'&&!quiz.active)renderQuizStart();
@@ -758,6 +870,157 @@ $('#vrExit').onclick=stopVR;
 $('#vrCenter').onclick=()=>{V.yawOff=null};
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&V.mode==='cardboard'&&V.running)stopVR();else resizeVR()});
 {const best=store.get('jgg-vrbest',0);if(best)$('#vrLoadNote').textContent=`Skor terbaik di peranti ini: ${best}/10`}
+
+/* ============ KOMPOS AJAIB ============ */
+const KMATS=[
+ {id:'buah',e:'🍌',n:'Kulit buah & sayur',t:'hijau',g:1,w:9},
+ {id:'nasi',e:'🍚',n:'Sisa nasi (sedikit)',t:'hijau',g:1,w:6},
+ {id:'teh',e:'☕',n:'Hampas teh & kopi',t:'hijau',g:1,w:5},
+ {id:'rumput',e:'🌱',n:'Rumput dipotong',t:'hijau',g:1,w:6},
+ {id:'daun',e:'🍂',n:'Daun kering',t:'coklat',c:1,w:-3},
+ {id:'kadbod',e:'📦',n:'Kadbod dicarik',t:'coklat',c:1,w:-4},
+ {id:'ranting',e:'🪵',n:'Ranting kecil',t:'coklat',c:1,w:-2},
+ {id:'air',e:'💧',n:'Siram air',t:'air',w:12},
+ {id:'plastik',e:'🧴',n:'Botol plastik',t:'salah',why:'Plastik tidak reput dan akan mencemarkan kompos. Masukkan ke tong oren.'},
+ {id:'tulang',e:'🍗',n:'Tulang & daging',t:'salah',why:'Daging dan tulang berbau busuk serta menarik tikus dan lalat.'},
+ {id:'minyak',e:'🛢️',n:'Minyak masak',t:'salah',why:'Minyak menyaluti bahan lain, menyekat udara dan melambatkan penguraian.'}
+];
+const K={};
+function kReset(){Object.assign(K,{g:0,c:0,w:45,air:60,week:0,prog:0,layers:[],bad:[],done:false,msg:['Tong kompos masih kosong. Mulakan dengan memasukkan campuran bahan hijau dan coklat.']});kRender()}
+const kRatio=()=>K.g?K.c/K.g:(K.c?9:0);
+function kChecks(){const r=kRatio(),tot=K.g+K.c;return{size:tot>=6,ratio:K.g>0&&r>=1.5&&r<=3.5,wet:K.w>=40&&K.w<=60,air:K.air>=50,clean:!K.bad.length}}
+function kAdd(id){
+  if(K.done)return;const m=KMATS.find(x=>x.id===id);
+  if(m.t==='salah'){if(!K.bad.includes(id))K.bad.push(id);K.msg=[`⚠️ ${m.n} tidak sesuai untuk kompos. ${m.why}`];kRender();return}
+  if(m.g)K.g+=m.g;if(m.c)K.c+=m.c;K.w=Math.max(0,Math.min(100,K.w+m.w));
+  if(m.t!=='air'){K.layers.push(m.t);if(K.layers.length>24)K.layers.shift()}
+  K.msg=[`${m.e} ${m.n} dimasukkan.`];kRender()}
+function kStir(){if(K.done)return;K.air=100;K.w=Math.max(0,K.w-3);K.msg=['🌀 Kompos dikacau. Udara masuk dan bakteri baik boleh bekerja lebih cepat.'];kRender()}
+function kWait(){
+  if(K.done)return;const ch=kChecks();K.week++;const m=[];
+  if(!ch.clean){m.push('⚠️ Ada bahan yang tidak sesuai dalam tong. Keluarkannya dahulu; kompos tidak berkembang minggu ini.')}
+  else if(!ch.size){m.push('Timbunan terlalu kecil untuk menjadi panas. Tambah lebih banyak bahan hijau dan coklat.')}
+  else{
+    const ok=[ch.ratio,ch.wet,ch.air].filter(Boolean).length;K.prog=Math.min(100,K.prog+[3,8,15,25][ok]);
+    if(ok===3)m.push('🔥 Timbunan hangat dan tidak berbau. Mikrob dan cacing sedang bekerja keras!');
+    if(!ch.ratio)m.push(kRatio()<1.5?'😷 Terlalu banyak bahan hijau, jadi kompos berbau. Tambah bahan coklat seperti daun kering atau kadbod.':'🐢 Terlalu banyak bahan coklat, jadi penguraian perlahan. Tambah bahan hijau seperti kulit buah.');
+    if(!ch.wet)m.push(K.w<40?'🏜️ Terlalu kering. Siram sedikit air; kompos sepatutnya lembap seperti span yang diperah.':'💦 Terlalu basah dan melekit. Tambah bahan coklat dan kacau.');
+    if(!ch.air)m.push('🌀 Kekurangan udara. Kacau kompos sekurang-kurangnya seminggu sekali.');
+  }
+  K.w=Math.max(0,K.w-6);K.air=Math.max(0,K.air-50);
+  if(K.prog>=100){K.done=true;addPoints(30);
+    const [b,t]=K.week<=5?['🏆','Pakar Kompos']:K.week<=8?['🌳','Tukang Kebun Hijau']:['🌱','Pengompos Muda'];
+    m.unshift(`${b} <b>Kompos siap dalam ${K.week} minggu!</b> Gelaran anda: <b>${t}</b>. Kompos gelap dan rapuh ini boleh digunakan sebagai baja di kebun sekolah. (+30 mata hijau)`)}
+  K.msg=[`<b>Minggu ${K.week}:</b>`,...m];kRender()}
+function kRender(){
+  if(!K.msg){kReset();return}
+  // svg
+  const layers=K.layers,n=layers.length,H=150,base=205,lh=Math.min(14,H/Math.max(1,n)),dk=K.prog/100;
+  const mix=(a,b,t)=>{const pa=a.match(/\w\w/g).map(x=>parseInt(x,16)),pb=b.match(/\w\w/g).map(x=>parseInt(x,16));return '#'+pa.map((v,i)=>Math.round(v+(pb[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+  let bands='';layers.forEach((t,i)=>{const col=mix(t==='hijau'?'6f9a32':'a9743f','3b2a1a',dk);bands+=`<rect x="34" y="${base-(i+1)*lh}" width="132" height="${lh+.5}" fill="${col}"/>`});
+  const ch=kChecks(),healthy=ch.clean&&ch.size&&ch.ratio&&ch.wet&&ch.air;
+  const worms=healthy||K.done?`<path d="M60 ${base-12} q6 -6 12 0 t12 0" stroke="#e79aa6" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M110 ${base-30} q6 -6 12 0 t12 0" stroke="#e79aa6" stroke-width="4" fill="none" stroke-linecap="round"/>`:'';
+  $('#kSvg').innerHTML=`<rect x="28" y="40" width="144" height="172" rx="12" fill="none" stroke="var(--muted)" stroke-width="4"/>
+   <clipPath id="kc"><rect x="30" y="42" width="140" height="168" rx="10"/></clipPath><g clip-path="url(#kc)">${bands}${worms}</g>
+   <rect x="22" y="24" width="156" height="16" rx="6" fill="var(--organik)"/>
+   ${n?'':'<text x="100" y="130" text-anchor="middle" font-size="13" fill="var(--muted)">Kosong</text>'}`;
+  const f=[];if(K.bad.length)f.push('🪰');if(K.g&&kRatio()<1.5)f.push('😷');if(K.w>60)f.push('💦');if(K.w<40&&n)f.push('🏜️');if(healthy)f.push('🔥');if(K.done)f.push('✨');
+  $('#kFlags').textContent=f.join(' ');
+  $('#kWeek').textContent='Minggu '+K.week;$('#kProg').style.width=K.prog+'%';$('#kProgTxt').textContent=`Kompos ${K.prog}% siap`;
+  const r=kRatio();$('#mRatio').style.left=Math.min(100,r/5*100)+'%';$('#mRatioV').textContent=K.g||K.c?(K.g?r.toFixed(1)+' : 1':'tiada hijau'):'–';
+  $('#mWet').style.left=K.w+'%';$('#mWetV').textContent=K.w+'%';$('#mAir').style.left=K.air+'%';$('#mAirV').textContent=K.air+'%';
+  $('#kDiag').innerHTML=K.msg.map((x,i)=>i===0?`<p style="margin:0 0 4px">${x}</p>`:'').join('')+(K.msg.length>1?`<ul>${K.msg.slice(1).map(x=>`<li>${x}</li>`).join('')}</ul>`:'')
+   +(K.bad.length?`<div class="btns"><button class="btn" id="kRemove">Keluarkan bahan yang salah</button></div>`:'')
+   +(K.done?`<div class="btns"><button class="btn" id="kAgain">Buat kompos baharu</button></div>`:'');
+  if(K.bad.length)$('#kRemove').onclick=()=>{K.bad=[];K.msg=['👍 Bahan yang salah telah dikeluarkan. Ingat: plastik ke tong oren, sisa lain ke tong sisa am.'];kRender()};
+  if(K.done)$('#kAgain').onclick=kReset;
+  $('#kMats').innerHTML=KMATS.map(m=>`<button class="mat" data-m="${m.id}" ${K.done?'disabled':''}><span class="e">${m.e}</span>${m.n}<br><small>${m.t==='hijau'?'Bahan hijau':m.t==='coklat'?'Bahan coklat':m.t==='air'?'Kelembapan':'?'}</small></button>`).join('');
+  $('#kWait').disabled=$('#kStir').disabled=K.done;
+}
+$('#kMats').onclick=e=>{const b=e.target.closest('[data-m]');if(b)kAdd(b.dataset.m)};
+$('#kWait').onclick=kWait;$('#kStir').onclick=kStir;$('#kReset').onclick=kReset;
+
+/* ============ PERJALANAN SAMPAH ============ */
+const CYC={
+ plastik:{n:'Botol plastik',e:'🧴',bin:'logam',steps:['Botol dibilas dan dimasukkan ke tong oren','Lori kutipan membawa botol ke pusat kitar semula','Plastik diasingkan mengikut jenis (contohnya PET dan HDPE)','Botol dicuci dan dihancurkan menjadi kepingan kecil','Kepingan dicairkan dan dijadikan pelet plastik','Pelet dibentuk menjadi produk baharu seperti baju poliester dan botol'],
+   fact:'Botol plastik PET boleh dijadikan serat untuk baju, beg dan permaidani.'},
+ tin:{n:'Tin aluminium',e:'🥫',bin:'logam',steps:['Tin dibilas, dipenyekkan dan dimasukkan ke tong oren','Lori kutipan membawa tin ke pusat kitar semula','Tin besi ditarik keluar dengan magnet, tinggal tin aluminium','Tin dihancurkan dan catnya dibuang','Aluminium dileburkan dalam relau dan dijadikan jongkong','Jongkong digelek menjadi kepingan nipis dan dibentuk menjadi tin baharu'],
+   fact:'Aluminium boleh dikitar semula berulang kali, dan ia menjimatkan banyak tenaga berbanding menghasilkan aluminium daripada bijih.'},
+ kertas:{n:'Kertas',e:'📄',bin:'kertas',steps:['Kertas yang kering dan bersih dimasukkan ke tong biru','Lori kutipan membawa kertas ke kilang kitar semula','Kertas direndam dalam air dan dikisar menjadi pulpa','Dakwat dan kotoran dibuang daripada pulpa','Pulpa ditapis, ditekan dan dikeringkan','Kepingan digulung menjadi kertas baharu seperti kotak dan tisu'],
+   fact:'Serat kertas boleh dikitar semula beberapa kali sahaja kerana ia menjadi semakin pendek setiap kali diproses.'}
+};
+const C={mat:'plastik',pool:[],slots:[],feed:''};
+function cSet(mat){C.mat=mat;C.slots=Array(6).fill(null);C.pool=shuffle([0,1,2,3,4,5]);C.feed='';cRender()}
+function cRender(){
+  if(!C.pool.length&&!C.slots.length){cSet('plastik');return}
+  const M=CYC[C.mat],done=store.get('jgg-cyc',{});
+  $('#cPick').innerHTML=Object.entries(CYC).map(([k,v])=>`<button data-m="${k}" style="--c:var(--${v.bin})" aria-pressed="${k===C.mat}">${v.e} ${v.n}${done[k]?' ✓':''}</button>`).join('');
+  $('#cSlots').innerHTML=C.slots.map((x,i)=>`<li><button class="slot ${x!=null?'full':''} ${C.marks?C.marks[i]===true?'good':C.marks[i]===false?'bad':'':''}" data-s="${i}"><span class="n">${i+1}</span>${x!=null?esc(M.steps[x]):'<span class="ph">Ketik langkah di bawah</span>'}</button></li>`).join('');
+  $('#cPool').innerHTML=C.pool.map(x=>`<button class="card" style="--c:var(--${M.bin})" data-c="${x}">${esc(M.steps[x])}</button>`).join('');
+  $('#cCheck').disabled=C.slots.some(x=>x==null);
+  $('#cFeed').innerHTML=C.feed;
+}
+$('#cPick').onclick=e=>{const b=e.target.closest('[data-m]');if(b)cSet(b.dataset.m)};
+$('#cPool').onclick=e=>{const b=e.target.closest('[data-c]');if(!b)return;const x=+b.dataset.c,i=C.slots.indexOf(null);if(i<0)return;C.slots[i]=x;C.pool=C.pool.filter(y=>y!==x);C.marks=null;C.feed='';cRender()};
+$('#cSlots').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const i=+b.dataset.s,x=C.slots[i];if(x==null)return;C.slots[i]=null;C.pool.push(x);C.marks=null;C.feed='';cRender()};
+$('#cClear').onclick=()=>cSet(C.mat);
+$('#cCheck').onclick=()=>{
+  const M=CYC[C.mat];C.marks=C.slots.map((x,i)=>x===i);const n=C.marks.filter(Boolean).length;
+  if(n===6){const done=store.get('jgg-cyc',{});const first=!done[C.mat];if(first){done[C.mat]=1;store.set('jgg-cyc',done);addPoints(20)}
+    const left=Object.keys(CYC).filter(k=>!done[k]);
+    C.feed=`<div class="explain"><b>Tepat sekali! 🎉</b> ${esc(M.fact)}${first?' (+20 mata hijau)':''}${left.length?`<div class="btns"><button class="btn" id="cNext">Cuba ${CYC[left[0]].n} pula</button></div>`:'<p style="margin-bottom:0">Anda telah menyelesaikan semua perjalanan. Hebat!</p>'}</div>`;
+    cRender();if(left.length)$('#cNext').onclick=()=>cSet(left[0]);return}
+  C.feed=`<div class="explain"><b>${n} daripada 6 langkah betul.</b> Langkah yang berwarna merah akan dikembalikan. Fikirkan: apa yang mesti berlaku sebelum langkah seterusnya?</div>`;cRender();
+  setTimeout(()=>{if(!C.marks)return;C.slots=C.slots.map((x,i)=>{if(C.marks[i])return x;if(x!=null)C.pool.push(x);return null});C.marks=C.marks.map(m=>m?true:null);cRender()},1600)};
+
+/* ============ JEJAK HIJAU SAYA ============ */
+const JQ=[
+ {q:'Bagaimana anda biasanya ke sekolah?',o:['Dihantar dengan kereta seorang diri','Bas sekolah atau berkongsi kereta','Berjalan kaki atau berbasikal'],tip:'Cuba naik bas sekolah, berkongsi kereta dengan rakan, atau berjalan kaki jika rumah dekat.'},
+ {q:'Apa yang anda minum di sekolah?',o:['Beli air botol plastik hampir setiap hari','Kadang-kadang bawa botol sendiri','Sentiasa bawa botol air sendiri'],tip:'Bawa botol air sendiri setiap hari. Satu botol boleh menggantikan ratusan botol plastik setahun.'},
+ {q:'Bagaimana dengan makanan anda?',o:['Selalu ada sisa yang dibuang','Kadang-kadang tidak habis','Ambil secukupnya dan habiskan'],tip:'Ambil makanan secukupnya. Jika ada sisa, masukkan ke tong sisa organik untuk dijadikan kompos.'},
+ {q:'Apabila keluar kelas yang kosong, lampu dan kipas…',o:['Biasanya dibiarkan hidup','Kadang-kadang saya tutup','Sentiasa saya tutup'],tip:'Jadikan tabiat: orang terakhir keluar kelas menutup lampu dan kipas.'},
+ {q:'Sampah di rumah anda…',o:['Semua dicampur dalam satu beg','Sebahagian diasingkan','Diasingkan mengikut jenis untuk dikitar semula'],tip:'Sediakan satu kotak di rumah untuk kertas dan satu lagi untuk botol dan tin.'},
+ {q:'Semasa menggosok gigi, paip air…',o:['Dibiarkan terbuka','Kadang-kadang ditutup','Ditutup sehingga perlu digunakan'],tip:'Tutup paip semasa menggosok gigi. Tabiat kecil ini menjimatkan banyak air setiap hari.'},
+ {q:'Semasa membeli-belah, beg plastik…',o:['Selalu ambil beg plastik baharu','Kadang-kadang bawa beg sendiri','Sentiasa bawa beg kain sendiri'],tip:'Simpan satu beg kain yang boleh dilipat di dalam beg sekolah.'},
+ {q:'Bagaimana anda menggunakan kertas?',o:['Tulis sebelah muka sahaja dan terus buang','Kadang-kadang guna kedua-dua belah','Guna kedua-dua belah dan kitar semula'],tip:'Guna kedua-dua belah kertas, kemudian masukkan ke tong biru.'}
+];
+const PLEDGES=['Bawa botol air sendiri setiap hari','Asingkan sampah mengikut tong','Tutup lampu dan kipas bila keluar kelas','Habiskan makanan dan kurangkan sisa','Bawa beg kain semasa membeli-belah'];
+const J={started:false,i:0,a:[]};
+function jTree(){
+  const max=JQ.length*2,sc=J.a.reduce((x,y)=>x+y,0),answered=J.a.length;
+  const pct=answered?sc/(answered*2):.5,grow=.35+.65*(sc/max)+(answered?0:.15);
+  const hex=pct>=.5?'#2f9a44':pct>=.25?'#8aa23a':'#b59b4a';
+  $('#tCrown').style.transform=`scale(${Math.min(1,grow).toFixed(2)})`;
+  document.querySelectorAll('#tCrown circle').forEach((c,i)=>c.setAttribute('fill',i%2?hex:hex));
+  let ex='';if(answered&&pct>=.5)ex+='<circle cx="80" cy="85" r="5" fill="#f7a8c4"/><circle cx="120" cy="75" r="5" fill="#f7a8c4"/><circle cx="104" cy="104" r="5" fill="#f7a8c4"/>';
+  if(answered&&pct>=.75)ex+='<circle cx="70" cy="110" r="6" fill="#e84a3c"/><circle cx="132" cy="108" r="6" fill="#e84a3c"/><circle cx="96" cy="70" r="6" fill="#e84a3c"/>';
+  if(answered>=JQ.length&&pct>=.85)ex+='<text x="160" y="40" font-size="22">🐦</text>';
+  $('#tExtra').innerHTML=ex;$('#tExtra').style.transform=$('#tCrown').style.transform}
+function jStart(){J.started=true;J.i=0;J.a=[];jTree();jQ()}
+function jQ(){
+  if(J.i>=JQ.length){jEnd();return}
+  const q=JQ[J.i];
+  $('#jArea').innerHTML=`<div class="qcard"><div class="qprog">${JQ.map((_,k)=>`<i class="${k<J.i?'done':k===J.i?'now':''}"></i>`).join('')}</div>
+   <p class="qtext">${esc(q.q)}</p><div class="opts">${q.o.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join('')}</div>
+   ${J.i?'<div class="btns"><button class="btn alt" id="jBack">← Soalan sebelum</button></div>':''}</div>`;
+  document.querySelectorAll('#jArea .opt').forEach(b=>b.onclick=()=>{J.a[J.i]=+b.dataset.k;J.i++;jTree();jQ()});
+  if(J.i)$('#jBack').onclick=()=>{J.i--;J.a.length=J.i;jTree();jQ()};
+}
+function jEnd(){
+  const sc=J.a.reduce((x,y)=>x+y,0),max=JQ.length*2,pct=Math.round(sc/max*100);
+  const [b,t,d]=pct>=85?['🌳','Pokok Rimba','Tabiat anda sangat mesra alam. Jadilah contoh kepada rakan-rakan!']:pct>=60?['🌿','Pokok Subur','Anda sudah banyak membantu bumi. Sedikit lagi usaha untuk menjadi juara hijau.']:pct>=35?['🌱','Anak Pokok','Permulaan yang baik. Pilih satu atau dua tabiat baharu untuk dicuba minggu ini.']:['🪴','Benih Harapan','Setiap perubahan kecil bermakna. Mulakan dengan satu tabiat hijau hari ini.'];
+  const tips=J.a.map((v,i)=>[v,i]).filter(([v])=>v<2).sort((x,y)=>x[0]-y[0]).slice(0,3).map(([,i])=>JQ[i].tip);
+  const first=!J.rewarded;if(first){J.rewarded=true;addPoints(20)}
+  $('#jArea').innerHTML=`<div class="qcard"><div class="badge">${b}</div><p class="qtext">${t}: ${pct}% hijau</p><p>${d}${first?' (+20 mata hijau)':''}</p>
+   ${tips.length?`<h3>Cadangan untuk anda</h3><ul>${tips.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p>Semua jawapan anda sudah pilihan paling hijau! 🏆</p>'}
+   <h3 style="margin-top:14px">Pilih ikrar hijau anda</h3><div class="opts" id="jPl">${PLEDGES.map((p,k)=>`<button class="opt" data-p="${k}">${esc(p)}</button>`).join('')}</div>
+   <div id="jCard"></div>
+   <div class="btns"><button class="btn alt" id="jAgain">Jawab semula</button></div></div>`;
+  $('#jPl').onclick=e=>{const x=e.target.closest('[data-p]');if(!x)return;document.querySelectorAll('#jPl .opt').forEach(o=>o.classList.toggle('right',o===x));
+    const today=new Date().toLocaleDateString('ms-MY',{day:'numeric',month:'long',year:'numeric'});
+    $('#jCard').innerHTML=`<div class="pledgecard"><div style="font-size:2rem">🌏</div><p class="note">Ikrar Hijau Saya</p><p class="big">"Saya berikrar untuk ${esc(PLEDGES[+x.dataset.p].charAt(0).toLowerCase()+PLEDGES[+x.dataset.p].slice(1))}."</p><p class="note">Jom Go Green! · ${today}</p><p class="note">Tangkap layar kad ini sebagai peringatan.</p></div>`;$('#jCard').scrollIntoView({block:'nearest',behavior:'smooth'})};
+  $('#jAgain').onclick=jStart;
+}
 
 route();
 </script>
